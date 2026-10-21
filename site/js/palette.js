@@ -67,12 +67,12 @@ const LADDER = {
 // ───────── families ─────────
 // hue = neutral hue, tint = neutral chroma per mode; shift = optional lightness offset for the dark ladder
 export const FAMILIES = [
-  { id: "dusk", name: "Dusk", hue: 262, tint: { dark: 0.042, light: 0.02 }, accent: "lamp", note: "Ink blue after sunset, a lamp on the desk. The default." },
+  { id: "carbon", name: "Carbon", hue: 260, tint: { dark: 0, light: 0 }, shift: { dark: -0.06 }, accent: "lamp", note: "No tint at all: true black at night, white by day. The default." },
+  { id: "dusk", name: "Dusk", hue: 262, tint: { dark: 0.042, light: 0.02 }, accent: "lamp", note: "Ink blue after sunset, a lamp on the desk." },
   { id: "graphite", name: "Graphite", hue: 250, tint: { dark: 0.014, light: 0.009 }, accent: "teal", note: "Cool and grey, close to the app's look today." },
   { id: "felt", name: "Felt", hue: 165, tint: { dark: 0.036, light: 0.018 }, accent: "brass", note: "Green desk felt and brass fittings." },
   { id: "walnut", name: "Walnut", hue: 48, tint: { dark: 0.03, light: 0.014 }, accent: "teal", note: "Warm wood by night, pale birch by day." },
   { id: "plum", name: "Plum", hue: 318, tint: { dark: 0.038, light: 0.018 }, accent: "rose", note: "Deep aubergine, soft lilac paper." },
-  { id: "carbon", name: "Carbon", hue: 260, tint: { dark: 0, light: 0 }, shift: { dark: -0.06 }, accent: "lamp", note: "No tint at all. True black at night." },
 ];
 
 // ───────── accents (one perceived lightness per mode) ─────────
@@ -100,7 +100,7 @@ export const STATUS = [
 ];
 
 export const MODES = ["dark", "light"];
-export const DEFAULTS = { family: "dusk", mode: "dark", accent: "lamp" };
+export const DEFAULTS = { family: "carbon", mode: "dark", accent: "lamp" };
 
 /** Neutral tokens of a family in a mode, as hex. */
 export function neutrals(familyId, mode) {
