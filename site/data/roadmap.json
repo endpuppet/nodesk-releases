@@ -153,9 +153,11 @@
     {
       "id": "B4",
       "version": "0.6",
-      "status": "planned",
+      "status": "done",
       "title": "Resize panels",
-      "summary": "Drag an edge or corner. Sizes are remembered per context, and a resize is undoable like any other change."
+      "summary": "Drag an edge or corner. Sizes are remembered per context, and a resize is undoable like any other change.",
+      "commit": "081d4dc",
+      "date": "2026-10-21"
     },
     {
       "id": "B5",
@@ -243,5 +245,5 @@
       "summary": "Options: a workspace that lays out your folder, apps and notes; plain project folders as today; or leave it to folder panels and launcher groups."
     }
   ],
-  "generatedAt": "2026-10-21T20:04:03+02:00"
+  "generatedAt": "2026-10-21T20:12:33+02:00"
 }

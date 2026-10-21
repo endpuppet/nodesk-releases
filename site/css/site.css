@@ -529,3 +529,31 @@ html.intro { overflow: hidden; }
   .gcap h3 { font-size: 1.1rem; } .gdesc { font-size: .9rem; line-height: 1.35; } .gnow { padding: 6px 10px; font-size: 13px; border-radius: 12px; }
   .hero .copy { margin-bottom: 4px; }
 }
+
+/* ───────── phone menu ───────── */
+.menubtn { display: none; }
+.menubtn .m-close, .menubtn[aria-expanded=true] .m-open { display: none; }
+.menubtn[aria-expanded=true] .m-close { display: block; }
+.mnav { position: absolute; left: 0; right: 0; top: 60px; padding: 8px var(--gutter) 14px; display: grid; background: var(--surface-hi); border-bottom: 1px solid var(--line-2); box-shadow: var(--shadow); }
+.mnav[hidden] { display: none; }
+.mnav a { display: flex; align-items: center; min-height: 52px; padding: 0 6px; font: 600 17px/1 var(--display); text-decoration: none; border-bottom: 1px solid var(--line); }
+.mnav a:last-child { border-bottom: 0; }
+.mnav a:active { background: var(--hover); }
+@media (max-width: 720px) { .menubtn { display: grid; } }
+@media (min-width: 721px) { .mnav { display: none; } }
+
+/* ───────── snap to the start of sections ───────── */
+html { scroll-snap-type: y proximity; }
+.hero, main > section:not(.hero):not(.tailsec), footer { scroll-snap-align: start; }
+
+/* ───────── phone: the demo uses the full width, the narration follows; no forced fit to the screen ───────── */
+@media (max-width: 640px) {
+  .hero { min-height: 0; padding-bottom: 8px; }
+  .hero .copy { margin-bottom: 14px; }
+  .galwrap { --w: 380; --h: 400; container-type: normal; min-height: 0; flex: none; }
+  .gal { height: auto; }
+  .gleft { width: 100%; }
+  .gdot { min-width: 24px; padding: 0 2px; }
+  .gdot[aria-current=true] i { width: 34px; }
+  .dots { margin-top: 10px; flex-wrap: nowrap; }
+}

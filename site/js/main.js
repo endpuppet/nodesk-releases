@@ -1,6 +1,7 @@
 import { config } from "../config.js";
 import { initTheme } from "./theme.js";
 import { initAccent } from "./accent.js";
+import { initMenu } from "./menu.js";
 import { initReveal } from "./reveal.js";
 import { initGallery } from "./gallery.js";
 import { playIntro } from "./intro.js";
@@ -12,6 +13,7 @@ window.__nd = 1;
 const intro = playIntro();
 initTheme();
 initAccent();
+initMenu();
 initReveal();
 initGallery(intro.gallery);
 initTry();
