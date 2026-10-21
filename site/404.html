@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not found – noDesk</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root { --bg: #0b0f14; --text: #e8edf2; --text-2: #a3aebb; --accent: #ffa94d; --on-accent: #2b1700; color-scheme: dark; }
+  @media (prefers-color-scheme: light) { :root { --bg: #e9edf2; --text: #111821; --text-2: #4a5664; --accent: #a34f00; --on-accent: #fff; color-scheme: light; } }
+  * { box-sizing: border-box; margin: 0; }
+  body { min-height: 100svh; display: grid; place-content: center; justify-items: center; gap: 14px; text-align: center; padding: 24px; background: var(--bg); color: var(--text);
+         font: 16px/1.5 "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif; }
+  h1 { font: 700 clamp(3.5rem, 14vw, 7rem)/1 "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif; letter-spacing: -.04em; color: var(--accent); }
+  p { color: var(--text-2); max-width: 36ch; }
+  a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; margin-top: 8px; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+</style>
+</head>
+<body>
+  <h1>404</h1>
+  <p>That page is not on this desktop. Nothing was moved or deleted.</p>
+  <!-- Absolute "/" would break under a project subpath, so go up from wherever this page is served. -->
+  <a id="home" href="./">Back to noDesk</a>
+  <script>
+    // On a project site (user.github.io/repo/missing) "/" is the wrong root: use the first path segment only when it is the repo.
+    (function () {
+      var host = location.hostname, seg = location.pathname.split('/')[1];
+      if (/\.github\.io$/.test(host) && seg) document.getElementById('home').href = '/' + seg + '/';
+      else document.getElementById('home').href = '/';
+      var i = document.querySelector('link[rel=icon]'); if (i && /\.github\.io$/.test(host) && seg) i.href = '/' + seg + '/favicon.svg';
+    })();
+  </script>
+</body>
+</html>

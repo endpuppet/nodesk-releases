@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>noDesk – a calm desktop layer for Windows</title>
+<meta name="description" content="noDesk is a calm, self-organising desktop layer for Windows: islands on your wallpaper, one Halo pill, a command bar on Alt+Space. Local, previewed, undoable. Alpha.">
+<meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#e9edf2" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="noDesk">
+<meta property="og:title" content="noDesk – a calm desktop layer for Windows">
+<meta property="og:description" content="Islands on your wallpaper, one Halo pill, a command bar on Alt+Space. Every move previewed, journaled and undoable. Alpha, Windows only.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="noDesk – a calm desktop layer for Windows">
+<meta name="twitter:description" content="Islands on your wallpaper, one Halo pill, a command bar on Alt+Space. Every move previewed, journaled and undoable.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/site.css">
+<script>
+  // Before first paint: mark JS as available (scroll reveals depend on it) and apply a saved theme choice.
+  document.documentElement.classList.add('js');
+  // Intro plays on a fresh visit at the top of the page, unless the visitor prefers less motion.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash && window.scrollY < 40) document.documentElement.classList.add('intro');
+  setTimeout(function () { document.documentElement.classList.remove('intro'); }, 9000);
+  // If the module below never runs (old browser, file:// preview), show the content anyway.
+  setTimeout(function () { if (!window.__nd) document.documentElement.classList.remove('js', 'intro'); }, 3500);
+  try { var a = JSON.parse(localStorage.getItem('nodesk.site.accent') || 'null'); if (a) { var st = document.documentElement.style; st.setProperty('--acc-d', a.d); st.setProperty('--on-d', a.od); st.setProperty('--acc-l', a.l); } } catch (e) {}
+  try { var t = localStorage.getItem('nodesk.site.theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="nmark" viewBox="0 0 64 64"><g fill="none" stroke-width="6.500" stroke-linecap="round" stroke-linejoin="round"><path d="M12 50V31a6 6 0 0 1 6-6h6a6 6 0 0 1 6 6" stroke="currentColor"/><path d="M30 50V14h9a11 11 0 0 1 11 11v14a11 11 0 0 1-11 11z" stroke="var(--accent)"/></g></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.600 5.600 7 7M17 17l1.400 1.400M18.400 5.600 17 7M7 17l-1.400 1.400"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.500A8 8 0 0 1 9.500 4 8 8 0 1 0 20 14.500z"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+  <symbol id="i-islands" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="10" rx="2.500"/><rect x="13" y="3" width="8" height="6" rx="2.500"/><rect x="13" y="11" width="8" height="10" rx="2.500"/><rect x="3" y="15" width="8" height="6" rx="2.500"/></symbol>
+  <symbol id="i-halo" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4"/><circle cx="7.500" cy="12" r="1.200"/><path d="M12 12h5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.500"/><path d="m20 20-4.200-4.200"/></symbol>
+  <symbol id="i-dock" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M15 4v16"/><path d="M18 9h0M18 12h0M18 15h0" stroke-width="2.200"/></symbol>
+  <symbol id="i-ctx" viewBox="0 0 24 24"><circle cx="8" cy="8" r="4.500"/><circle cx="16" cy="8" r="4.500"/><circle cx="12" cy="15.500" r="4.500"/></symbol>
+  <symbol id="i-shelf" viewBox="0 0 24 24"><path d="M3 15v-2l3-8h12l3 8v2"/><path d="M3 15h5l1 2h6l1-2h5v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 13V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7"/><path d="M4 13h4.500l1 2.500h5l1-2.500H20v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.500-6 4 12 2.500-6H21"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12.500V4a1 1 0 0 1 1-1h8.500l8.500 8.500a1 1 0 0 1 0 1.400l-7.100 7.100a1 1 0 0 1-1.400 0z"/><circle cx="8" cy="8" r="1.300"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.500" y="10.500" width="15" height="10" rx="3"/><path d="M8 10.500V8a4 4 0 0 1 8 0v2.500"/><circle cx="12" cy="15.500" r="1.300"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.500 4.500 4.500L19 7.500"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 5v14l12-7z"/></symbol>
+  <symbol id="i-gh" viewBox="0 0 24 24"><path d="M9 19c-4 1.200-4-2-6-2.500M15 21v-3.200c0-1 .1-1.400-.5-2 2.800-.3 5.500-1.400 5.500-6a4.600 4.600 0 0 0-1.300-3.200 4.300 4.300 0 0 0-.1-3.200s-1-.3-3.400 1.300a11.500 11.500 0 0 0-6 0C6.800 3.800 5.800 4.100 5.800 4.100a4.300 4.300 0 0 0-.1 3.200A4.600 4.600 0 0 0 4.400 10.500c0 4.600 2.700 5.700 5.500 6-.6.600-.6 1.200-.5 2V21"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.500h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.500a5.500 5.500 0 0 1 0 11H11"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="noDesk, back to top"><span class="mark"><svg viewBox="0 0 64 64" style="color:var(--text)" aria-hidden="true"><g fill="none" stroke-width="6.500" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M12 50V31a6 6 0 0 1 6-6h6a6 6 0 0 1 6 6" stroke="currentColor"/><path pathLength="1" d="M30 50V14h9a11 11 0 0 1 11 11v14a11 11 0 0 1-11 11z" stroke="var(--accent)"/></g></svg></span><span class="bn">noDesk</span></a>
+    <nav class="main" aria-label="Sections" data-st="1">
+      <a href="#features">Features</a>
+      <a href="#calm">Calm by design</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#download">Download</a>
+    </nav>
+    <div class="accpick" data-st="1">
+      <button class="iconbtn" id="accent-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="accent-pop" aria-label="Accent colour"><span class="swatch"></span></button>
+      <div class="accpop" id="accent-pop" role="group" aria-label="Accent colour" hidden><b>Accent colour</b><div class="accgrid" id="accent-grid"></div><button class="btn ghost" id="accent-reset" type="button" style="min-height:36px;font-size:13px">Reset to orange</button></div>
+    </div>
+    <button class="iconbtn" id="theme-toggle" data-st="1" type="button" data-mode="system" aria-label="Theme: follows system. Switch to light">
+      <svg class="i t-system" aria-hidden="true"><use href="#i-monitor"/></svg>
+      <svg class="i t-light" aria-hidden="true"><use href="#i-sun"/></svg>
+      <svg class="i t-dark" aria-hidden="true"><use href="#i-moon"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<!-- ───────── hero ───────── -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="copy">
+      <span class="chip alpha" data-st="1">Alpha · Windows only</span>
+      <h1><span class="w" style="--i:0">Your</span> <span class="w" style="--i:1">desktop,</span> <em class="w" style="--i:2">quietly</em> <span class="w" style="--i:3">in</span> <span class="w" style="--i:4">order.</span></h1>
+      <p class="lede" data-st="2">noDesk is a calm, self-organising layer for Windows. Files, apps and actions live in islands on your wallpaper, one pill keeps you oriented, and <span class="kbd">Alt</span> + <span class="kbd">Space</span> reaches everything.</p>
+    </div>
+    <div class="galwrap"><div class="gal" id="gal" role="group" aria-roledescription="carousel" aria-label="Feature animations">
+      <div class="gleft" data-st="3">
+      <div class="stagebox" id="stagebox">
+        <div class="stage" id="stage" data-ctx="home" aria-hidden="true">
+          <div class="wall"></div>
+          <div class="halo" id="halo">
+            <span class="nmark"><svg viewBox="0 0 24 24" style="color:var(--text)"><use href="#nmark"/></svg></span>
+            <span class="cur" id="halo-cur">Home</span>
+            <span class="ctxs" role="group">
+              <button class="ctx" type="button" tabindex="-1" data-ctx="home" aria-pressed="true">Home</button>
+              <button class="ctx" type="button" tabindex="-1" data-ctx="art" aria-pressed="false">Art</button>
+              <button class="ctx" type="button" tabindex="-1" data-ctx="dev" aria-pressed="false">Dev</button>
+              <button class="ctx" type="button" tabindex="-1" data-ctx="focus" aria-pressed="false">Focus</button>
+            </span>
+            <span class="status" id="halo-status"></span>
+            <span class="clock" id="halo-clock">09:41</span>
+          </div>
+          <div id="scene-host"></div>
+          <div class="cursor off" id="cursor"><svg width="22" height="22" viewBox="0 0 22 22"><path d="M3 2l14 7.500-6.200 1.800L8 17.500z" fill="#fff" stroke="#111" stroke-width="1.300" stroke-linejoin="round"/></svg></div>
+          <div class="flyer" id="flyer" hidden></div>
+        </div>
+      </div>
+      <div class="dots" id="dots" aria-label="Choose a feature"></div>
+      </div>
+      <div class="gcap" data-st="4">
+        <div class="gtop">
+          <span class="gnum" id="g-num">1 / 7</span>
+          <div class="gctl" id="gctl">
+            <button type="button" id="g-prev" aria-label="Previous feature"><svg class="i" aria-hidden="true" style="rotate:90deg"><use href="#i-chev"/></svg></button>
+            <button type="button" id="g-toggle" aria-label="Pause animation"><svg class="i p-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="i p-play" aria-hidden="true"><use href="#i-play"/></svg></button>
+            <button type="button" id="g-next" aria-label="Next feature"><svg class="i" aria-hidden="true" style="rotate:-90deg"><use href="#i-chev"/></svg></button>
+          </div>
+        </div>
+        <h3 id="g-title">Inbox</h3>
+        <p class="gdesc" id="g-desc"></p>
+        <p class="gnow"><span class="pip" aria-hidden="true"></span><span id="g-now"></span></p>
+      </div>
+      <noscript><p class="gdesc" style="margin-top:12px">Animated tour of Inbox, command bar, Halo and contexts, docks, Shelf and Peek, smart rename and desk health. It needs JavaScript.</p></noscript>
+    </div>
+  </div>
+  </div>
+</section>
+<section class="tailsec"><div class="wrap">    <div class="copy tail" data-st="5">
+      <p class="lede lede-m">noDesk is a calm, self-organising layer for Windows. Files, apps and actions live in islands on your wallpaper, one pill keeps you oriented, and <span class="kbd">Alt</span> + <span class="kbd">Space</span> reaches everything.</p>
+      <div class="cta">
+        <a class="btn" href="#roadmap">See what is built</a>
+        <a class="btn ghost" href="#download"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg>Alpha access</a>
+      </div>
+      <p class="facts"><span>No AI, no cloud</span><span>Every move previewed and undoable</span><span>Nothing is ever deleted</span></p>
+    </div></div></section>
+
+<!-- ───────── features ───────── -->
+<section id="features">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">What it is</span>
+      <h2>A layer, not another window to manage.</h2>
+      <p class="lede">noDesk sits on and around your desktop. It does the tidying you keep postponing, and shows its work first.</p>
+    </div>
+    <div class="fgrid" id="fgrid">
+      <article class="card reveal" style="--i:0"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-islands"/></svg></span><h3>Islands</h3><p>Files, apps and actions sit in soft panels on the wallpaper layer, behind your windows. Drag them where you like; they snap to a grid and stay put.</p></article>
+      <article class="card reveal" style="--i:1"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-halo"/></svg></span><h3>The Halo</h3><p>One small pill at the top of the screen shows the time, your context and short status lines like “Moved 3 files”. Hover it to switch context, undo or open settings.</p></article>
+      <article class="card reveal" style="--i:2"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></span><h3>Command bar</h3><p><kbd>Alt</kbd> + <kbd>Space</kbd> from anywhere. Search, or say what you want: “move pdfs to reading”, “tidy”, “focus 25”. Always shows a preview first.</p></article>
+      <article class="card reveal" style="--i:3"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-dock"/></svg></span><h3>Edge rails &amp; docks</h3><p>Stack panels (Inbox, Bins, Launch, Scratch, Projects) on any screen edge as tabs or columns. Icon, label or both, with upright stacked text on vertical rails.</p></article>
+      <article class="card reveal" style="--i:4"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-ctx"/></svg></span><h3>Contexts</h3><p>Home, Art, Dev, Focus, or your own. Each keeps its own layout and accent colour. Switch with <kbd>Alt</kbd> + <kbd>1</kbd>–<kbd>9</kbd>. Try them in the demo above.</p></article>
+      <article class="card reveal" style="--i:5"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-shelf"/></svg></span><h3>Shelf &amp; Peek</h3><p>Drop files on the right-edge Shelf to hold them for later; it only keeps references. Press <kbd>Space</kbd> on any file for a quick preview.</p></article>
+      <article class="card reveal" style="--i:6"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg></span><h3>A smart Inbox</h3><p>Watches Desktop and Downloads (off until you turn it on), suggests a bin for each new file with a reason, and tidies the sure things on its own.</p></article>
+      <article class="card reveal" style="--i:7"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-pulse"/></svg></span><h3>Desk health</h3><p>Finds stale, duplicate and huge files and near-duplicate images, and offers an archive plan. Installer and archive clean-up included.</p></article>
+      <article class="card reveal" style="--i:8"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-tag"/></svg></span><h3>Smart rename &amp; rules</h3><p>Names from a PDF’s title, a photo’s date or where a download came from. Rule suggestions come from your own moves, so noDesk learns your habits, not someone else’s.</p></article>
+    </div>
+    <div class="smart reveal">
+      <p><b>Smart, but local, and no AI.</b> Everything below runs on your PC with plain rules and file metadata. Nothing is sent anywhere.</p>
+      <ul class="pills" aria-label="Local smart features">
+        <li>Bin suggestions</li><li>Tidy</li><li>Smart rename</li><li>Rule suggestions</li><li>Desk health</li><li>Near-duplicate images</li><li>Project folders</li><li>Installer clean-up</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── calm by design ───────── -->
+<section class="calm" id="calm">
+  <div class="wrap">
+    <div class="grid">
+      <div class="reveal">
+        <span class="eyebrow">Calm by design</span>
+        <h2 style="margin-top:14px">Show first. Move second. Undo always.</h2>
+        <ol class="steps">
+          <li><div><b>Preview</b><span>Tidy, rules and the command bar all show exactly what will move where, with a reason and a confidence. Low confidence says “needs you” instead of guessing.</span></div></li>
+          <li><div><b>Journal</b><span>Every applied change is written to a local journal, so noDesk can always tell you what it did and when.</span></div></li>
+          <li><div><b>Undo</b><span>One shared <span class="kbd">Ctrl</span> + <span class="kbd">Z</span> across every move, from any panel.</span></div></li>
+        </ol>
+      </div>
+      <div class="try reveal" id="try" data-state="idle" aria-label="Interactive example">
+        <div class="th-row"><b>Try it</b><span class="chip" id="try-chip">Nothing planned</span></div>
+        <ul>
+          <li><span>Invoice_Tax2026.pdf</span><span class="to" data-to="Tax2026">Downloads</span></li>
+          <li><span>Screenshot 2026-10-18.png</span><span class="to" data-to="Screenshots">Desktop</span></li>
+          <li><span>setup_v3.2.1.exe</span><span class="to" data-to="Archive/Installers">Downloads</span></li>
+        </ul>
+        <div class="journal" id="try-journal" role="status" aria-live="polite">Journal is empty. Press Preview.</div>
+        <div class="acts">
+          <button class="btn ghost" type="button" id="try-preview">Preview</button>
+          <button class="btn" type="button" id="try-apply" disabled>Apply</button>
+          <button class="btn ghost" type="button" id="try-undo" disabled><svg class="i" aria-hidden="true" style="width:15px;height:15px"><use href="#i-undo"/></svg>Undo</button>
+        </div>
+        <p style="font-size:13px;color:var(--text-3)">A model of the flow. It touches no files.</p>
+      </div>
+    </div>
+    <div class="promises">
+      <div class="reveal" style="--i:0"><h3>Archive only</h3><p>noDesk never deletes. Old and duplicate files move to an archive you can browse and restore from.</p></div>
+      <div class="reveal" style="--i:1"><h3>Local only</h3><p>No account, no cloud AI, no telemetry. The only network traffic is the update check.</p></div>
+      <div class="reveal" style="--i:2"><h3>Easy in, easy out</h3><p>A per-user installer that needs no admin rights. Uninstalling leaves your files and bins exactly where they are.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── roadmap ───────── -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Roadmap</span>
+      <h2>Where noDesk is, and where it is going.</h2>
+      <p class="lede">Taken from the project’s own plan. Done means it is built and committed; it does not yet mean it is in your hands.</p>
+    </div>
+    <div id="roadmap-root" aria-live="polite" style="min-height:560px">
+      <p class="rm-empty">Loading the roadmap…</p>
+    </div>
+    <noscript><p class="rm-empty">The roadmap needs JavaScript. Phase A (quick fixes) is done; B (docks and Halo) is in progress; C (panels), D (Shell) and E (projects) follow.</p></noscript>
+  </div>
+</section>
+
+<!-- ───────── download ───────── -->
+<section id="download" style="padding-top:0">
+  <div class="wrap">
+    <div class="dl" id="dl" data-state="locked">
+      <span class="lock" aria-hidden="true"><svg class="i" id="dl-icon"><use href="#i-lock"/></svg></span>
+      <div>
+        <h3 id="dl-title">Alpha builds are invite-only for now</h3>
+        <p id="dl-text">noDesk is in early alpha, and the rough edges that daily use turns up are still being sorted out. Public downloads open once it is steadier.</p>
+        <div class="ver-line"><span class="chip alpha">Alpha · Windows 10/11</span><span class="mono" id="dl-ver" style="font-size:13px;color:var(--text-3)"></span></div>
+      </div>
+      <div class="acts" id="dl-acts">
+        <button class="btn" id="dl-btn" type="button" aria-disabled="true"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg>Download locked</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>noDesk · Windows 10 / 11 · Alpha</span>
+    <ul>
+      <li><a href="https://github.com/endpuppet/nodesk-releases" rel="noopener"><svg class="i" style="display:inline;vertical-align:-3px;width:16px;height:16px;margin-right:6px" aria-hidden="true"><use href="#i-gh"/></svg>Releases on GitHub</a></li>
+      <li>Licence: to be decided</li>
+    </ul>
+  </div>
+</footer>
+
+<script type="application/json" id="roadmap-fallback">
+{"schema":1,"channel":"alpha","current":{"version":"0.6.0-alpha.1","phase":"B"},"versions":[{"version":"0.1","name":"Native core","status":"done","date":"2026-10-19","summary":"The foundation: native edge rails and the Halo pill on Windows, islands on the wallpaper layer, themes that do not depend on Windows, user-defined contexts."},{"version":"0.2","name":"Inbox","status":"done","date":"2026-10-20","summary":"Real files for the first time: Desktop and Downloads watching, bins, a Tidy preview, auto-sort for sure things, and one shared undo for every move."},{"version":"0.3","name":"Command bar","status":"done","date":"2026-10-20","summary":"Alt+Space search and a small command grammar, a configurable hotkey, the Shelf for holding files, and Peek for quick previews."},{"version":"0.4","name":"Smart","status":"done","date":"2026-10-20","summary":"The local, no-AI helpers: desk health, smart rename, rule suggestions from your own moves, project folders, near-duplicate images, installer clean-up. Plus a guided first run, a per-user installer and signed auto-update."},{"version":"0.5","name":"Quick fixes","status":"done","phase":"A","date":"2026-10-21","summary":"A round of fixes from daily use: clearer settings, calmer defaults and a steadier Halo."},{"version":"0.6","name":"Docks & Halo","status":"in_progress","phase":"B","summary":"Where the Halo and the docks live, and how they get out of your way: over apps, hidden until hover, or on the desktop, with compact modes and drop targets."},{"version":"0.7","name":"Panels","status":"planned","phase":"C","summary":"Panels that work harder: a fixed action bar, right-click menus everywhere, and panels you add yourself."},{"version":"0.8","name":"Shell","status":"planned","phase":"D","summary":"A Shell panel for the commands you keep retyping, with a terminal built in later."},{"version":"0.9","name":"Projects","status":"exploring","phase":"E","summary":"What a project should mean in noDesk is still open. The idea on the table is a workspace that lays out its folder, apps, shell presets and notes."},{"version":"1.0","name":"Beta","status":"planned","summary":"Wider testing once the shape settles: polish, accessibility pass, code signing."}],"items":[{"id":"A1","version":"0.5","status":"done","commit":"a7dab07","title":"A real cog for settings","summary":"The settings icon was a sun. It is a proper cog now."},{"id":"A2","version":"0.5","status":"done","commit":"aa81f90","title":"A Halo mark that stays put","summary":"The n no longer slides when the pill grows on hover. A click on the resting pill opens the command bar."},{"id":"A3","version":"0.5","status":"done","commit":"08fec82","title":"Home, Art, Dev and Focus contexts","summary":"A friendlier default set, each with its own layout and accent. Home is the one that stays. Your own contexts are untouched."},{"id":"A4","version":"0.5","status":"done","commit":"f674d01","title":"Settings in sections, plus an App section","summary":"One section open at a time, remembered. The App section adds start with Windows, settings presets you can save, load, export and import, and a Quit button."},{"id":"A5","version":"0.5","status":"done","commit":"250aa38","title":"Denser panels and a Panel opacity setting","summary":"Panels are less see-through by default, and a slider lets you choose how much."},{"id":"A6","version":"0.5","status":"done","commit":"a20670f","title":"Upright labels on vertical docks","summary":"Letters stack top to bottom instead of lying sideways. Rotated text stays available as an option."},{"id":"B1","version":"0.6","status":"done","commit":"1fad14c","title":"Choose where the Halo and docks sit","summary":"Over your apps, hidden until you hover, or on the desktop behind them. The Halo defaults to over apps, compact."},{"id":"B2","version":"0.6","status":"done","commit":"7f3bd37","title":"Compact docks with staged reveal","summary":"A thin strip in the stack's accent colour widens when you point at it and opens the panel after a short dwell you can tune."},{"id":"B3","version":"0.6","status":"done","commit":"c7e9752","title":"Fix panels that are cut off on one side","summary":"Open dock panels had a squared-off edge against the screen. They now float just off the edge with rounded corners all round."},{"id":"B4","version":"0.6","status":"planned","title":"Resize panels","summary":"Drag an edge or corner. Sizes are remembered per context, and a resize is undoable like any other change."},{"id":"B5","version":"0.6","status":"planned","title":"Clear drop targets, and drop on the Halo","summary":"Every place that accepts a drop lights up. Dropping on the Halo offers actions that fit what you dropped, all with preview and undo."},{"id":"B6","version":"0.6","status":"planned","title":"Frosted-glass blur where Windows allows","summary":"A short experiment first, then real blur wherever it works."},{"id":"B7","version":"0.6","status":"planned","title":"A drag grid on the desktop","summary":"A faint dot grid appears while you drag a panel or icon, so things line up. Static when reduced motion is on."},{"id":"B8","version":"0.6","status":"planned","title":"Progress for slow jobs","summary":"A line on the Halo and a bar in the panel for scans and other long jobs, with Cancel where it is possible."},{"id":"B9","version":"0.6","status":"done","commit":"5083364","title":"A new logo, app icon and tray icon","summary":"The Squared nD mark replaces the placeholder: a real multi-size app icon, a mark on the Halo that takes the context accent, and a tray icon with Quit."},{"id":"C1","version":"0.7","status":"planned","title":"A fixed action bar in each panel","summary":"The actions for your selection stay in view instead of scrolling away, with one suggestion that fits the moment."},{"id":"C2","version":"0.7","status":"planned","title":"Right-click menus","summary":"Open, open with, show in Explorer, copy path, rename, move to a bin, add to the Shelf. Also on noDesk's own surfaces for quick settings, layout and Quit."},{"id":"C3","version":"0.7","status":"planned","title":"Add your own panels","summary":"Launcher groups, live folder views, saved searches and notes, each stackable, dockable or floating like any other panel."},{"id":"C4","version":"0.7","status":"planned","title":"Choose your own scan folders","summary":"Add folders for noDesk to watch, each set to refresh automatically or only when you ask. Applies without a restart."},{"id":"D1","version":"0.8","status":"planned","title":"A Shell panel","summary":"Saved commands with a working folder, a command builder, and a button to open them in Windows Terminal."},{"id":"D2","version":"0.8","status":"exploring","title":"A built-in terminal","summary":"Live output, running processes and a way to keep an eye on long-running tools. Its own phase, after the Shell panel."},{"id":"E","version":"0.9","status":"exploring","title":"Projects, once we decide what they are","summary":"Options: a workspace that lays out your folder, apps and notes; plain project folders as today; or leave it to folder panels and launcher groups."}],"generatedAt":"2026-10-21T20:04:03+02:00"}
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

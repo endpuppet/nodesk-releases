@@ -1,0 +1,247 @@
+{
+  "schema": 1,
+  "channel": "alpha",
+  "current": {
+    "version": "0.6.0-alpha.1",
+    "phase": "B"
+  },
+  "versions": [
+    {
+      "version": "0.1",
+      "name": "Native core",
+      "status": "done",
+      "date": "2026-10-19",
+      "summary": "The foundation: native edge rails and the Halo pill on Windows, islands on the wallpaper layer, themes that do not depend on Windows, user-defined contexts."
+    },
+    {
+      "version": "0.2",
+      "name": "Inbox",
+      "status": "done",
+      "date": "2026-10-20",
+      "summary": "Real files for the first time: Desktop and Downloads watching, bins, a Tidy preview, auto-sort for sure things, and one shared undo for every move."
+    },
+    {
+      "version": "0.3",
+      "name": "Command bar",
+      "status": "done",
+      "date": "2026-10-20",
+      "summary": "Alt+Space search and a small command grammar, a configurable hotkey, the Shelf for holding files, and Peek for quick previews."
+    },
+    {
+      "version": "0.4",
+      "name": "Smart",
+      "status": "done",
+      "date": "2026-10-20",
+      "summary": "The local, no-AI helpers: desk health, smart rename, rule suggestions from your own moves, project folders, near-duplicate images, installer clean-up. Plus a guided first run, a per-user installer and signed auto-update."
+    },
+    {
+      "version": "0.5",
+      "name": "Quick fixes",
+      "status": "done",
+      "phase": "A",
+      "date": "2026-10-21",
+      "summary": "A round of fixes from daily use: clearer settings, calmer defaults and a steadier Halo."
+    },
+    {
+      "version": "0.6",
+      "name": "Docks & Halo",
+      "status": "in_progress",
+      "phase": "B",
+      "summary": "Where the Halo and the docks live, and how they get out of your way: over apps, hidden until hover, or on the desktop, with compact modes and drop targets."
+    },
+    {
+      "version": "0.7",
+      "name": "Panels",
+      "status": "planned",
+      "phase": "C",
+      "summary": "Panels that work harder: a fixed action bar, right-click menus everywhere, and panels you add yourself."
+    },
+    {
+      "version": "0.8",
+      "name": "Shell",
+      "status": "planned",
+      "phase": "D",
+      "summary": "A Shell panel for the commands you keep retyping, with a terminal built in later."
+    },
+    {
+      "version": "0.9",
+      "name": "Projects",
+      "status": "exploring",
+      "phase": "E",
+      "summary": "What a project should mean in noDesk is still open. The idea on the table is a workspace that lays out its folder, apps, shell presets and notes."
+    },
+    {
+      "version": "1.0",
+      "name": "Beta",
+      "status": "planned",
+      "summary": "Wider testing once the shape settles: polish, accessibility pass, code signing."
+    }
+  ],
+  "items": [
+    {
+      "id": "A1",
+      "version": "0.5",
+      "status": "done",
+      "commit": "a7dab07",
+      "title": "A real cog for settings",
+      "summary": "The settings icon was a sun. It is a proper cog now."
+    },
+    {
+      "id": "A2",
+      "version": "0.5",
+      "status": "done",
+      "commit": "aa81f90",
+      "title": "A Halo mark that stays put",
+      "summary": "The n no longer slides when the pill grows on hover. A click on the resting pill opens the command bar."
+    },
+    {
+      "id": "A3",
+      "version": "0.5",
+      "status": "done",
+      "commit": "08fec82",
+      "title": "Home, Art, Dev and Focus contexts",
+      "summary": "A friendlier default set, each with its own layout and accent. Home is the one that stays. Your own contexts are untouched."
+    },
+    {
+      "id": "A4",
+      "version": "0.5",
+      "status": "done",
+      "commit": "f674d01",
+      "title": "Settings in sections, plus an App section",
+      "summary": "One section open at a time, remembered. The App section adds start with Windows, settings presets you can save, load, export and import, and a Quit button."
+    },
+    {
+      "id": "A5",
+      "version": "0.5",
+      "status": "done",
+      "commit": "250aa38",
+      "title": "Denser panels and a Panel opacity setting",
+      "summary": "Panels are less see-through by default, and a slider lets you choose how much."
+    },
+    {
+      "id": "A6",
+      "version": "0.5",
+      "status": "done",
+      "commit": "a20670f",
+      "title": "Upright labels on vertical docks",
+      "summary": "Letters stack top to bottom instead of lying sideways. Rotated text stays available as an option."
+    },
+    {
+      "id": "B1",
+      "version": "0.6",
+      "status": "done",
+      "commit": "1fad14c",
+      "title": "Choose where the Halo and docks sit",
+      "summary": "Over your apps, hidden until you hover, or on the desktop behind them. The Halo defaults to over apps, compact."
+    },
+    {
+      "id": "B2",
+      "version": "0.6",
+      "status": "done",
+      "commit": "7f3bd37",
+      "title": "Compact docks with staged reveal",
+      "summary": "A thin strip in the stack's accent colour widens when you point at it and opens the panel after a short dwell you can tune."
+    },
+    {
+      "id": "B3",
+      "version": "0.6",
+      "status": "done",
+      "commit": "c7e9752",
+      "title": "Fix panels that are cut off on one side",
+      "summary": "Open dock panels had a squared-off edge against the screen. They now float just off the edge with rounded corners all round."
+    },
+    {
+      "id": "B4",
+      "version": "0.6",
+      "status": "planned",
+      "title": "Resize panels",
+      "summary": "Drag an edge or corner. Sizes are remembered per context, and a resize is undoable like any other change."
+    },
+    {
+      "id": "B5",
+      "version": "0.6",
+      "status": "planned",
+      "title": "Clear drop targets, and drop on the Halo",
+      "summary": "Every place that accepts a drop lights up. Dropping on the Halo offers actions that fit what you dropped, all with preview and undo."
+    },
+    {
+      "id": "B6",
+      "version": "0.6",
+      "status": "planned",
+      "title": "Frosted-glass blur where Windows allows",
+      "summary": "A short experiment first, then real blur wherever it works."
+    },
+    {
+      "id": "B7",
+      "version": "0.6",
+      "status": "planned",
+      "title": "A drag grid on the desktop",
+      "summary": "A faint dot grid appears while you drag a panel or icon, so things line up. Static when reduced motion is on."
+    },
+    {
+      "id": "B8",
+      "version": "0.6",
+      "status": "planned",
+      "title": "Progress for slow jobs",
+      "summary": "A line on the Halo and a bar in the panel for scans and other long jobs, with Cancel where it is possible."
+    },
+    {
+      "id": "B9",
+      "version": "0.6",
+      "status": "done",
+      "commit": "5083364",
+      "title": "A new logo, app icon and tray icon",
+      "summary": "The Squared nD mark replaces the placeholder: a real multi-size app icon, a mark on the Halo that takes the context accent, and a tray icon with Quit."
+    },
+    {
+      "id": "C1",
+      "version": "0.7",
+      "status": "planned",
+      "title": "A fixed action bar in each panel",
+      "summary": "The actions for your selection stay in view instead of scrolling away, with one suggestion that fits the moment."
+    },
+    {
+      "id": "C2",
+      "version": "0.7",
+      "status": "planned",
+      "title": "Right-click menus",
+      "summary": "Open, open with, show in Explorer, copy path, rename, move to a bin, add to the Shelf. Also on noDesk's own surfaces for quick settings, layout and Quit."
+    },
+    {
+      "id": "C3",
+      "version": "0.7",
+      "status": "planned",
+      "title": "Add your own panels",
+      "summary": "Launcher groups, live folder views, saved searches and notes, each stackable, dockable or floating like any other panel."
+    },
+    {
+      "id": "C4",
+      "version": "0.7",
+      "status": "planned",
+      "title": "Choose your own scan folders",
+      "summary": "Add folders for noDesk to watch, each set to refresh automatically or only when you ask. Applies without a restart."
+    },
+    {
+      "id": "D1",
+      "version": "0.8",
+      "status": "planned",
+      "title": "A Shell panel",
+      "summary": "Saved commands with a working folder, a command builder, and a button to open them in Windows Terminal."
+    },
+    {
+      "id": "D2",
+      "version": "0.8",
+      "status": "exploring",
+      "title": "A built-in terminal",
+      "summary": "Live output, running processes and a way to keep an eye on long-running tools. Its own phase, after the Shell panel."
+    },
+    {
+      "id": "E",
+      "version": "0.9",
+      "status": "exploring",
+      "title": "Projects, once we decide what they are",
+      "summary": "Options: a workspace that lays out your folder, apps and notes; plain project folders as today; or leave it to folder panels and launcher groups."
+    }
+  ],
+  "generatedAt": "2026-10-21T20:04:03+02:00"
+}
