@@ -1,13 +1,13 @@
-import { config } from "../config.js";
-import { initTheme } from "./theme.js";
-import { initAccent } from "./accent.js";
-import { initMenu } from "./menu.js";
-import { initReveal } from "./reveal.js";
-import { initGallery } from "./gallery.js";
-import { playIntro } from "./intro.js";
-import { initTry } from "./calm.js";
-import { initRoadmap } from "./roadmap.js";
-import { initDownload } from "./download.js";
+import { config } from "../config.js?v=e3b0a3a9";
+import { initTheme } from "./theme.js?v=e3b0a3a9";
+import { initAccent } from "./accent.js?v=e3b0a3a9";
+import { initMenu } from "./menu.js?v=e3b0a3a9";
+import { initReveal } from "./reveal.js?v=e3b0a3a9";
+import { initGallery } from "./gallery.js?v=e3b0a3a9";
+import { playIntro } from "./intro.js?v=e3b0a3a9";
+import { initTry } from "./calm.js?v=e3b0a3a9";
+import { initRoadmap } from "./roadmap.js?v=e3b0a3a9";
+import { initDownload } from "./download.js?v=e3b0a3a9";
 
 window.__nd = 1;
 const intro = playIntro();
