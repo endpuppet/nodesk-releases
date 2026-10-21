@@ -12,21 +12,28 @@ const PDF = `<span class="th pdf">PDF</span>Invoice_Tax2026.pdf`;
 
 export const SCENES = [
   {
-    id: "inbox", short: "Inbox", title: "Inbox: a bin for every new file", steps: 5,
-    desc: "Every new file gets a suggested bin, with the reason and a confidence. One click accepts it. Nothing moves until you say so, and Ctrl+Z puts it back.",
+    id: "inbox", short: "Inbox", title: "Inbox: a bin for every new file", steps: 7,
+    desc: "New files in Downloads and on the Desktop land in the Inbox. noDesk suggests a bin for each, with the reason and a confidence. One click accepts it, nothing moves until you say so, and Ctrl+Z puts it back.",
     html: `<div class="scene"><div class="cols">
       ${isl("i-inbox", "Inbox", "2 new", row("pdf", "PDF", "Invoice_Tax2026.pdf", `<span class="sg pop" data-k="sg">→ Tax2026 · 94%</span>`, "cl", 'data-k="hot"') + row("png", "PNG", "Screenshot 2026-10-18.png") + row("zip", "ZIP", "holiday-photos.zip") + `<div class="why pop" data-k="why"><b>Why:</b> the name starts with “Invoice”, like your Tax2026 rule.</div>`)}
       ${isl("i-folder", "Bins", "", bin("Tax2026", 12, "tax") + bin("Screenshots", 48, "shots") + bin("Archive", 203, "arch"))}
-    </div>${toast("Moved 1 file to Tax2026")}${key("Ctrl", "Z")}</div>`,
+    </div>
+    <div class="dlbar pop" data-k="dl"><span class="dlic" data-k="dlic">${ico("i-down")}</span><div class="dlt"><b>Invoice_Tax2026.pdf</b><span>Downloading from your browser · 84 KB</span><i class="bar"><u></u></i></div><span class="dlok pop" data-k="dlok">Saved to Downloads</span></div>
+    ${toast("Moved 1 file to Tax2026")}${key("Ctrl", "Z")}</div>`,
     async run(a) {
-      const [hot, sg, why, toastEl, cnt, tax, taxn, keyEl] = ["hot", "sg", "why", "toast", "cnt", "tax", "taxn", "key"].map((k) => a.q(`[data-k=${k}]`));
+      const [hot, sg, why, toastEl, cnt, tax, taxn, keyEl, dl, dlic, dlok] = ["hot", "sg", "why", "toast", "cnt", "tax", "taxn", "key", "dl", "dlic", "dlok"].map((k) => a.q(`[data-k=${k}]`));
       const setCount = (landed) => { cnt.textContent = landed ? "2 new" : "3 new"; taxn.textContent = landed ? 13 : 12; };
-      a.say("A new file lands in Inbox"); a.on(hot); cnt.textContent = "3 new"; await a.wait(1100);
-      a.say("noDesk suggests a bin, with the reason and a confidence"); a.on(sg); a.on(why); await a.wait(2400);
-      a.say("One click accepts it"); await a.cursor.to(sg); a.cursor.click(); await a.wait(350);
-      a.say("The file moves, and the move is journaled");
-      hot.classList.add("ghost"); await a.fly(hot, tax, PDF); a.off(hot, sg, why); hot.classList.remove("ghost");
-      setCount(true); a.on(tax, "glow"); a.halo.status("Moved 1 file · Ctrl+Z undoes"); a.on(toastEl); a.cursor.hide(); await a.wait(2400);
+      a.say("A download finishes in your browser"); a.on(dl); await a.wait(400); dl.classList.add("run"); await a.wait(1900); a.on(dlok); await a.wait(700);
+      a.say("noDesk watches Downloads: the file lands in the Inbox");
+      a.on(hot); hot.classList.add("ghost"); cnt.textContent = "3 new"; await a.wait(450);
+      await a.fly(dlic, hot, PDF); a.off(dl); hot.classList.remove("ghost"); hot.classList.add("new"); await a.wait(1300);
+      a.say("It suggests a bin, with the reason and a confidence"); a.on(sg); a.on(why); await a.wait(2600);
+      a.say("One click accepts the suggestion"); await a.cursor.to(sg); a.cursor.click(); await a.wait(350);
+      a.say("The file moves into the bin and the bin's count goes up");
+      hot.classList.add("ghost"); await a.fly(hot, tax, PDF); a.off(hot, sg, why); hot.classList.remove("ghost", "new");
+      setCount(true); a.on(tax, "glow"); a.cursor.hide(); await a.wait(1500);
+      a.say("The Halo confirms it, and Ctrl+Z undoes it");
+      a.halo.status("Moved 1 file · Ctrl+Z undoes"); a.halo.ping(); a.on(toastEl); await a.wait(2600);
       a.say("Changed your mind? Ctrl+Z puts it right back");
       a.off(toastEl); a.halo.status(null); a.on(keyEl); await a.wait(1000); a.off(keyEl);
       a.on(hot); hot.classList.add("ghost"); await a.wait(450);

@@ -2,7 +2,7 @@
 // A scene is replaced wholesale when it starts, so nothing needs resetting. Playback pauses when the
 // gallery is off-screen, the tab is hidden, or the person pauses it. Under prefers-reduced-motion
 // each scene runs to its end state at once and nothing advances by itself.
-import { SCENES } from "./scenes.js?v=e3b0a3a9";
+import { SCENES } from "./scenes.js?v=1aaa7b4c";
 
 const $ = (id) => document.getElementById(id);
 const CANCEL = Symbol("cancel");
@@ -83,12 +83,16 @@ export function initGallery(ready = Promise.resolve()) {
         live();
         $("g-now").textContent = text;
         said++;
+        const cap = $("scap");
+        cap.classList.remove("on"); void cap.offsetWidth;
+        $("scap-n").textContent = said; $("scap-t").textContent = text; cap.classList.add("on");
         dots[idx].style.setProperty("--p", Math.min(said / scene.steps, 1));
       },
       halo: {
         ctx: setCtx,
         status(t) { haloEl.classList.toggle("st", !!t); if (t) haloStatus.textContent = t; },
         open(b) { haloEl.classList.toggle("open", b); },
+        ping() { haloEl.classList.remove("ping"); void haloEl.offsetWidth; haloEl.classList.add("ping"); },
       },
       cursor: {
         async to(el, fx = 0.6, fy = 0.55) {
@@ -143,15 +147,16 @@ export function initGallery(ready = Promise.resolve()) {
     const scene = SCENES[idx];
     meta(idx);
     // reset the shared pieces, then build the scene
-    flyer.hidden = true; cursorEl.classList.add("off");
+    flyer.getAnimations().forEach((an) => an.cancel()); flyer.hidden = true; cursorEl.classList.add("off");
     cursorEl.style.transition = "none";
     cursorEl.style.transform = `translate(${logicalW() - 90}px, ${logicalH() - 70}px)`;
     void cursorEl.offsetWidth; cursorEl.style.transition = "";
     haloEl.classList.remove("open", "st");
     const api = makeApi(my, scene);
     setCtx(scene.id === "halo" ? "home" : "dev");
+    $("scap").classList.remove("on");
     host.innerHTML = scene.html;
-    requestAnimationFrame(() => host.firstElementChild?.classList.add("in"));
+    setTimeout(() => host.firstElementChild?.classList.add("in"), 30);
     try {
       await scene.run(api);
       if (my !== token) return;

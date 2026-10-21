@@ -162,16 +162,20 @@
     {
       "id": "B5",
       "version": "0.6",
-      "status": "planned",
+      "status": "done",
       "title": "Clear drop targets, and drop on the Halo",
-      "summary": "Every place that accepts a drop lights up. Dropping on the Halo offers actions that fit what you dropped, all with preview and undo."
+      "summary": "Bins light up while you drag a file to them. Dropping files on the Halo offers actions that fit what you dropped, such as moving them to a bin or holding them on the Shelf, and a move can be undone.",
+      "commit": "f398876",
+      "date": "2026-10-21"
     },
     {
       "id": "B6",
       "version": "0.6",
-      "status": "planned",
+      "status": "done",
       "title": "Frosted-glass blur where Windows allows",
-      "summary": "A short experiment first, then real blur wherever it works."
+      "summary": "Tried on Windows 10: the blur cannot be kept inside a panel's shape there, so panels keep the dense see-through look. Windows 11 is worth another try later.",
+      "commit": "e79dcfc",
+      "date": "2026-10-21"
     },
     {
       "id": "B7",
@@ -245,5 +249,5 @@
       "summary": "Options: a workspace that lays out your folder, apps and notes; plain project folders as today; or leave it to folder panels and launcher groups."
     }
   ],
-  "generatedAt": "2026-10-21T20:12:33+02:00"
+  "generatedAt": "2026-10-21T20:52:18+02:00"
 }
