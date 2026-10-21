@@ -63,10 +63,14 @@ export async function initRoadmap(root) {
     const kids = [];
 
     kids.push(el("div", { class: "rm-top" },
-      el("div", { class: "rm-now" },
-        el("span", { class: "mono", text: `Alpha line ${data.current?.version ?? "?"}` }),
-        curPhaseVersion && chip("in_progress"),
-        curPhaseVersion && el("span", { text: `Now: phase ${curPhaseVersion.phase}, ${curPhaseVersion.name}` })),
+      (() => {
+        const done = data.items.filter((i) => i.status === "done").length, all = data.items.length;
+        const bar = el("span", { class: "bar", role: "img", "aria-label": `${done} of ${all} items done` }, el("i"));
+        bar.firstChild.style.width = `${Math.round((done / all) * 100)}%`;
+        return el("div", { class: "rm-now" }, bar,
+          el("span", { text: `${done} of ${all} done` }),
+          curPhaseVersion && el("span", { text: `Now building ${curPhaseVersion.version}, ${curPhaseVersion.name}` }));
+      })(),
       (() => {
         const bar = el("div", { class: "filters", role: "group", "aria-label": "Filter the roadmap by status" });
         for (const f of ["all", ...ORDER]) {

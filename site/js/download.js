@@ -5,7 +5,7 @@ export async function initDownload(config, roadmap) {
   const card = document.getElementById("dl");
   const ver = document.getElementById("dl-ver");
   const line = roadmap?.current?.version;
-  if (line) ver.textContent = `Alpha line ${line}`;
+  if (line) ver.textContent = `Current build ${line}`;
 
   if (config.downloadLocked !== false) {
     card.dataset.state = "locked";
