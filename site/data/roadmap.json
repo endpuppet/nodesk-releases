@@ -3,7 +3,7 @@
   "channel": "alpha",
   "current": {
     "version": "0.6.0-alpha.1",
-    "phase": "B"
+    "phase": "D"
   },
   "versions": [
     {
@@ -45,21 +45,23 @@
     {
       "version": "0.6",
       "name": "Docks & Halo",
-      "status": "in_progress",
+      "status": "done",
       "phase": "B",
-      "summary": "Where the Halo and the docks live, and how they get out of your way: over apps, hidden until hover, or on the desktop, with compact modes and drop targets."
+      "summary": "Where the Halo and the docks live, and how they get out of your way: over apps, hidden until hover, or on the desktop, with compact modes and drop targets.",
+      "date": "2026-10-23"
     },
     {
       "version": "0.7",
       "name": "Panels",
-      "status": "planned",
+      "status": "done",
       "phase": "C",
-      "summary": "Panels that work harder: a fixed action bar, right-click menus everywhere, and panels you add yourself."
+      "summary": "Panels that work harder: a fixed action bar, right-click menus everywhere, and panels you add yourself.",
+      "date": "2026-10-26"
     },
     {
       "version": "0.8",
       "name": "Shell",
-      "status": "planned",
+      "status": "in_progress",
       "phase": "D",
       "summary": "A Shell panel for the commands you keep retyping, with a terminal built in later."
     },
@@ -180,16 +182,20 @@
     {
       "id": "B7",
       "version": "0.6",
-      "status": "planned",
+      "status": "done",
       "title": "A drag grid on the desktop",
-      "summary": "A faint dot grid appears while you drag a panel or icon, so things line up. Static when reduced motion is on."
+      "summary": "A faint dot grid appears while you drag a panel or icon, so things line up. Static when reduced motion is on.",
+      "commit": "30f07ae",
+      "date": "2026-10-22"
     },
     {
       "id": "B8",
       "version": "0.6",
-      "status": "planned",
+      "status": "done",
       "title": "Progress for slow jobs",
-      "summary": "A line on the Halo and a bar in the panel for scans and other long jobs, with Cancel where it is possible."
+      "summary": "A line on the Halo and a bar in the panel for scans and other long jobs, with Cancel where it is possible.",
+      "commit": "e169af9",
+      "date": "2026-10-23"
     },
     {
       "id": "B9",
@@ -202,37 +208,47 @@
     {
       "id": "C1",
       "version": "0.7",
-      "status": "planned",
+      "status": "done",
       "title": "A fixed action bar in each panel",
-      "summary": "The actions for your selection stay in view instead of scrolling away, with one suggestion that fits the moment."
+      "summary": "The actions for your selection stay in view instead of scrolling away, with one suggestion that fits the moment.",
+      "commit": "b9d4fe6",
+      "date": "2026-10-26"
     },
     {
       "id": "C2",
       "version": "0.7",
-      "status": "planned",
+      "status": "done",
       "title": "Right-click menus",
-      "summary": "Open, open with, show in Explorer, copy path, rename, move to a bin, add to the Shelf. Also on noDesk's own surfaces for quick settings, layout and Quit."
+      "summary": "Open, open with, show in Explorer, copy path, rename, move to a bin, add to the Shelf. Also on noDesk's own surfaces for quick settings, layout and Quit.",
+      "commit": "b12b0a9",
+      "date": "2026-10-26"
     },
     {
       "id": "C3",
       "version": "0.7",
-      "status": "planned",
+      "status": "done",
       "title": "Add your own panels",
-      "summary": "Launcher groups, live folder views, saved searches and notes, each stackable, dockable or floating like any other panel."
+      "summary": "Launcher groups, live folder views, saved searches and notes, each stackable, dockable or floating like any other panel.",
+      "commit": "402d80b",
+      "date": "2026-10-26"
     },
     {
       "id": "C4",
       "version": "0.7",
-      "status": "planned",
+      "status": "done",
       "title": "Choose your own scan folders",
-      "summary": "Add folders for noDesk to watch, each set to refresh automatically or only when you ask. Applies without a restart."
+      "summary": "Add folders for noDesk to watch, each set to refresh automatically or only when you ask. Applies without a restart.",
+      "commit": "5249480",
+      "date": "2026-10-26"
     },
     {
       "id": "D1",
       "version": "0.8",
-      "status": "planned",
+      "status": "done",
       "title": "A Shell panel",
-      "summary": "Saved commands with a working folder, a command builder, and a button to open them in Windows Terminal."
+      "summary": "Saved commands with a working folder, opened in Windows Terminal. A command builder fills in values you type each time, suggests commands from your project files and shows exactly what will run.",
+      "commit": "68f952c",
+      "date": "2026-10-26"
     },
     {
       "id": "D2",
@@ -249,5 +265,5 @@
       "summary": "Options: a workspace that lays out your folder, apps and notes; plain project folders as today; or leave it to folder panels and launcher groups."
     }
   ],
-  "generatedAt": "2026-10-21T23:26:33+02:00"
+  "generatedAt": "2026-10-26T13:12:35+01:00"
 }

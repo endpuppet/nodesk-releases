@@ -1,7 +1,7 @@
 // Theme picker: family, light/dark/system, accent. The colours themselves live in css/themes.css
 // (generated from palette.js); this only sets data-family / data-mode / data-accent on <html> and draws
 // the pickers. The head script in index.html applies the saved choice before first paint.
-import { ACCENTS, FAMILIES, DEFAULTS, tokens } from "./palette.js?v=a15f6c46";
+import { ACCENTS, FAMILIES, DEFAULTS, tokens } from "./palette.js?v=e4950c0b";
 
 const KEY = "nodesk.site.theme.v2";
 const MODES = [["system", "Auto"], ["light", "Day"], ["dark", "Night"]];

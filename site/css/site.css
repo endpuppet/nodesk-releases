@@ -139,7 +139,7 @@ nav.main a:hover { background: var(--hover); color: var(--text-1); }
 
 /* gallery layout: sized from the space left under the header (container units) */
 .galwrap { --w: 680; --h: 400; --caph: 0px; flex: 1 1 auto; min-height: 300px; container-type: size; }
-@media (max-width: 640px) { .galwrap { --w: 380; --h: 430; } }
+@media (max-width: 640px) { .galwrap { --w: 380; --h: 480; } }
 .gal { height: 100%; display: flex; gap: clamp(14px, 2.2vw, 28px); align-items: center; }
 .gleft { flex: none; min-width: 0; width: min(64cqw, calc((100cqh - 48px) * var(--w) / var(--h))); }
 .gcap { flex: 1 1 260px; max-width: 440px; }
@@ -171,6 +171,7 @@ nav.main a:hover { background: var(--hover); color: var(--text-1); }
 .cols { display: flex; gap: 14px; align-items: flex-start; }
 .cols > .isl { flex: 1 1 0; min-width: 0; }
 .stage[data-narrow] .cols { flex-direction: column; align-items: stretch; gap: 10px; }
+.stage[data-narrow] .cols > .isl { flex: none; }
 .pop { opacity: 0; transform: translateY(8px) scale(.98); pointer-events: none; transition: opacity .3s, transform .5s var(--spring); }
 .pop.on { opacity: 1; transform: none; }
 .cl, .frow.cl { height: 0; opacity: 0; overflow: hidden; padding-block: 0; transition: height .4s var(--ease), opacity .3s; }
@@ -268,7 +269,7 @@ nav.main a:hover { background: var(--hover); color: var(--text-1); }
 .rail.rl .re { opacity: 1; transition-delay: .12s; }
 .re.on { color: var(--accent-ink); background: var(--tint); }
 .re svg { width: 16px; height: 16px; }
-.ul { writing-mode: vertical-rl; text-orientation: upright; font: 800 8.5px/1 var(--font); letter-spacing: .02em; }
+.ul { writing-mode: vertical-rl; transform: rotate(180deg); font: 800 8.5px/1 var(--font); letter-spacing: .02em; }
 .dpanel { position: absolute; left: 62px; top: -4px; width: 270px; z-index: 3; border-radius: 16px; overflow: hidden; background: color-mix(in oklab, var(--surface-1) 97%, transparent); border: 1px solid var(--line-2); box-shadow: var(--drop-pop); }
 .tabs { display: flex; gap: 2px; padding: 8px 8px 4px; }
 .tabs span { height: 28px; padding: 0 10px; border-radius: 9px; font: 650 12px/28px var(--display); color: var(--text-2); }
@@ -561,7 +562,8 @@ footer a:hover { color: var(--text-1); }
 
 /* ───────── intro: logo, name, the tagline tidies itself onto the mat, header slides home, the page fills in ───────── */
 html.intro { overflow: hidden; }
-.intro .brand, .intro .hero h1 { position: relative; z-index: 60; will-change: transform; }
+.intro .brand { position: relative; z-index: 60; }
+.intro .hero h1 { position: relative; z-index: 60; will-change: transform; }
 .intro:not(.slide) .brand, .intro:not(.slide) .hero h1 { transition: none; }
 .intro.slide .brand, .intro.slide .hero h1 { transition: transform 1.15s var(--out); }
 .intro:not(.st1) .top { background: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
@@ -588,7 +590,7 @@ html.intro { overflow: hidden; }
   .hero .copy { margin-bottom: 18px; }
   .hero .lede { display: none; }
   .lede-m { display: block; flex-basis: 100%; }
-  .galwrap { --w: 380; --h: 430; container-type: normal; min-height: 0; flex: none; }
+  .galwrap { --w: 380; --h: 480; container-type: normal; min-height: 0; flex: none; }
   .gal { height: auto; }
   .gleft { width: 100%; }
   .gdot { min-width: 24px; padding: 0 2px; }
