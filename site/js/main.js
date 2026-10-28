@@ -1,13 +1,13 @@
-import { config } from "../config.js?v=e4950c0b";
-import { initThemes } from "./themes.js?v=e4950c0b";
-import { initMenu } from "./menu.js?v=e4950c0b";
-import { initMat } from "./mat.js?v=e4950c0b";
-import { initGallery } from "./gallery.js?v=e4950c0b";
-import { playIntro } from "./intro.js?v=e4950c0b";
-import { initAnatomy } from "./anatomy.js?v=e4950c0b";
-import { initTry } from "./calm.js?v=e4950c0b";
-import { initRoadmap } from "./roadmap.js?v=e4950c0b";
-import { initDownload } from "./download.js?v=e4950c0b";
+import { config } from "../config.js?v=8342084e";
+import { initThemes } from "./themes.js?v=8342084e";
+import { initMenu } from "./menu.js?v=8342084e";
+import { initMat } from "./mat.js?v=8342084e";
+import { initGallery } from "./gallery.js?v=8342084e";
+import { playIntro } from "./intro.js?v=8342084e";
+import { initAnatomy } from "./anatomy.js?v=8342084e";
+import { initTry } from "./calm.js?v=8342084e";
+import { initRoadmap } from "./roadmap.js?v=8342084e";
+import { initDownload } from "./download.js?v=8342084e";
 
 window.__nd = 1;
 initThemes();

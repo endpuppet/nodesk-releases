@@ -3,7 +3,7 @@
   "channel": "alpha",
   "current": {
     "version": "0.6.0-alpha.1",
-    "phase": "D"
+    "phase": "B"
   },
   "versions": [
     {
@@ -61,9 +61,10 @@
     {
       "version": "0.8",
       "name": "Shell",
-      "status": "in_progress",
+      "status": "done",
       "phase": "D",
-      "summary": "A Shell panel for the commands you keep retyping, with a terminal built in later."
+      "summary": "A Shell panel for the commands you keep retyping, with a terminal built in later.",
+      "date": "2026-10-26"
     },
     {
       "version": "0.9",
@@ -71,6 +72,20 @@
       "status": "exploring",
       "phase": "E",
       "summary": "What a project should mean in noDesk is still open. The idea on the table is a workspace that lays out its folder, apps, shell presets and notes."
+    },
+    {
+      "version": "0.10",
+      "name": "Desktop cleanup",
+      "phase": "F",
+      "status": "done",
+      "summary": "An opt-in, reversible cleanup of the Windows desktop: shortcuts sorted into launcher categories, loose files into folders, native icons hidden only while you want them hidden.",
+      "date": "2026-10-28"
+    },
+    {
+      "version": "0.11",
+      "name": "Follow-ups",
+      "status": "planned",
+      "summary": "What the desktop cleanup left open: checks on a real desktop, shortcuts that show up later, and undo that works from anywhere."
     },
     {
       "version": "1.0",
@@ -253,17 +268,106 @@
     {
       "id": "D2",
       "version": "0.8",
-      "status": "exploring",
+      "status": "done",
       "title": "A built-in terminal",
-      "summary": "Live output, running processes and a way to keep an eye on long-running tools. Its own phase, after the Shell panel."
+      "summary": "Presets and shells run inside the Shell panel: live output in a real terminal, the processes it started, Stop and Run again, and a watch that tells you when a tool finishes, goes quiet waiting for you, or prints a word you pick.",
+      "commit": "4eddf1f",
+      "date": "2026-10-26"
     },
     {
       "id": "E",
       "version": "0.9",
       "status": "exploring",
       "title": "Projects, once we decide what they are",
-      "summary": "Options: a workspace that lays out your folder, apps and notes; plain project folders as today; or leave it to folder panels and launcher groups."
+      "summary": "Postponed for now. Options: a workspace that lays out your folder, apps and notes; plain project folders as today; or leave it to folder panels and launcher groups."
+    },
+    {
+      "id": "F1",
+      "version": "0.10",
+      "status": "done",
+      "commit": "1ce6825",
+      "title": "Hiding the desktop icons safely",
+      "summary": "A spike showed the native icon layer can be hidden and always comes back: after a crash, an Explorer restart or quitting, with every icon position unchanged."
+    },
+    {
+      "id": "F2",
+      "version": "0.10",
+      "status": "done",
+      "commit": "461b67a",
+      "title": "Sorting desktop shortcuts by what they are",
+      "summary": "Offline, explained and unit-tested: each shortcut gets a category (Code, Games, Office, Web, System and more) with a reason in words; files are grouped by kind."
+    },
+    {
+      "id": "F3",
+      "version": "0.10",
+      "status": "done",
+      "title": "A preview before the desktop is cleaned up",
+      "summary": "A sheet shows the suggested categories before anything happens: drag or key shortcuts between them, add, rename or delete a category. Apply makes one Desktop launcher with a tab per category and one Ctrl+Z step; no shortcut file is moved.",
+      "commit": "222df73",
+      "date": "2026-10-28"
+    },
+    {
+      "id": "F4",
+      "version": "0.10",
+      "status": "done",
+      "title": "The Desktop launcher, styled for many tabs",
+      "summary": "The launcher made by cleanup is tuned for a dozen categories: roomier tabs, a launch that is quick and clear.",
+      "commit": "2cbb67f",
+      "date": "2026-10-28"
+    },
+    {
+      "id": "F5",
+      "version": "0.10",
+      "status": "done",
+      "title": "Hide the native icons while cleanup is on",
+      "summary": "Optional and always reversible: turning it off, quitting or a crash brings every icon back where it was.",
+      "commit": "e0b869b",
+      "date": "2026-10-28"
+    },
+    {
+      "id": "F6",
+      "version": "0.10",
+      "status": "done",
+      "title": "Loose desktop files through Tidy",
+      "summary": "Files on the Desktop use the same preview and plan as Tidy, into folders you can undo.",
+      "commit": "7807303",
+      "date": "2026-10-28"
+    },
+    {
+      "id": "G1",
+      "version": "0.11",
+      "status": "planned",
+      "title": "Checked by hand on a real desktop",
+      "summary": "Dragging shortcuts between categories, launching from the Desktop launcher, high-DPI screens, the day theme, and an Explorer restart while the icons are hidden."
+    },
+    {
+      "id": "G2",
+      "version": "0.11",
+      "status": "planned",
+      "title": "New shortcuts offered after a cleanup",
+      "summary": "A shortcut that lands on the Desktop later is suggested for its category instead of waiting for the next full cleanup."
+    },
+    {
+      "id": "G3",
+      "version": "0.11",
+      "status": "planned",
+      "title": "Undo cleanup from any context",
+      "summary": "Ctrl+Z after a cleanup removes the Desktop launcher everywhere, not only in the context where it was applied."
+    },
+    {
+      "id": "H1",
+      "version": "1.0",
+      "status": "planned",
+      "title": "An accessibility pass",
+      "summary": "Screen-reader names, keyboard reach and contrast checked on every panel, rail and sheet."
+    },
+    {
+      "id": "H2",
+      "version": "1.0",
+      "status": "planned",
+      "title": "A signed installer you can download",
+      "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-10-26T13:12:35+01:00"
+  "generatedAt": "2026-10-28T01:03:03+01:00"
 }
