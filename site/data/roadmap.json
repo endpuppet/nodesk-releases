@@ -2,7 +2,7 @@
   "schema": 1,
   "channel": "alpha",
   "current": {
-    "version": "0.10.0-alpha.1"
+    "version": "0.11.0-alpha.1"
   },
   "versions": [
     {
@@ -91,7 +91,7 @@
     {
       "version": "0.12",
       "name": "Follow-ups",
-      "status": "planned",
+      "status": "in_progress",
       "summary": "What the desktop cleanup left open: checks on a real desktop, shortcuts that show up later, and undo that works from anywhere."
     },
     {
@@ -434,6 +434,24 @@
       "summary": "Ctrl+Z after a cleanup removes the Desktop launcher everywhere, not only in the context where it was applied."
     },
     {
+      "id": "G4",
+      "version": "0.12",
+      "status": "done",
+      "title": "Reset noDesk",
+      "summary": "Settings and the command bar can delete noDesk’s own settings and data and start again as on a first run, after a clear two-step check. Your files and bins stay.",
+      "commit": "59915d6",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "G5",
+      "version": "0.12",
+      "status": "done",
+      "title": "Delete my data when uninstalling",
+      "summary": "The uninstaller offers to delete noDesk’s settings and data too. Off by default, and an update never deletes anything.",
+      "commit": "56c93c6",
+      "date": "2026-11-02"
+    },
+    {
       "id": "H1",
       "version": "1.0",
       "status": "planned",
@@ -448,5 +466,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-02T02:43:24+01:00"
+  "generatedAt": "2026-11-02T07:04:49+01:00"
 }
