@@ -452,6 +452,13 @@
       "date": "2026-11-02"
     },
     {
+      "id": "G6",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Compact islands",
+      "summary": "A collapsed island shrinks to a small chip showing its icon, its name or both, and opens to its full size while you point at it. A tidier desktop with no empty bars."
+    },
+    {
       "id": "H1",
       "version": "1.0",
       "status": "planned",
@@ -466,5 +473,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-02T07:05:00+01:00"
+  "generatedAt": "2026-11-02T10:59:48+01:00"
 }
