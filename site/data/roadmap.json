@@ -2,8 +2,7 @@
   "schema": 1,
   "channel": "alpha",
   "current": {
-    "version": "0.6.0-alpha.1",
-    "phase": "B"
+    "version": "0.10.0-alpha.1"
   },
   "versions": [
     {
@@ -48,7 +47,7 @@
       "status": "done",
       "phase": "B",
       "summary": "Where the Halo and the docks live, and how they get out of your way: over apps, hidden until hover, or on the desktop, with compact modes and drop targets.",
-      "date": "2026-10-23"
+      "date": "2026-11-01"
     },
     {
       "version": "0.7",
@@ -83,6 +82,14 @@
     },
     {
       "version": "0.11",
+      "name": "Welcome & motion",
+      "status": "done",
+      "phase": "I",
+      "date": "2026-11-02",
+      "summary": "A first run that shows the product, and an interface that moves with you: default contexts that demonstrate every panel, a guided welcome tour, and animation that explains what just happened."
+    },
+    {
+      "version": "0.12",
       "name": "Follow-ups",
       "status": "planned",
       "summary": "What the desktop cleanup left open: checks on a real desktop, shortcuts that show up later, and undo that works from anywhere."
@@ -221,6 +228,33 @@
       "summary": "The Squared nD mark replaces the placeholder: a real multi-size app icon, a mark on the Halo that takes the context accent, and a tray icon with Quit."
     },
     {
+      "id": "B10",
+      "version": "0.6",
+      "status": "done",
+      "title": "The drag grid shows on any wallpaper",
+      "summary": "The dots were drawn in the theme colour, so in a Day theme over a dark wallpaper only one dot showed. Each dot is now a light core with a dark edge and reads on any background.",
+      "commit": "f2b74ec",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "B11",
+      "version": "0.6",
+      "status": "done",
+      "title": "Quick settings and a wider Settings",
+      "summary": "The Halo's gear opens a small sheet with the things you change often: day or night, accent, panel opacity and the resting options. The full Settings is wide, with a page list on the left, and folds to a strip on a narrow screen.",
+      "commit": "f2b74ec",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "B12",
+      "version": "0.6",
+      "status": "done",
+      "title": "Click outside to close Settings",
+      "summary": "A click anywhere outside Settings, Quick settings or the desktop cleanup closes it, and the click still reaches what you clicked.",
+      "commit": "f2b74ec",
+      "date": "2026-11-01"
+    },
+    {
       "id": "C1",
       "version": "0.7",
       "status": "done",
@@ -334,22 +368,67 @@
       "date": "2026-10-28"
     },
     {
-      "id": "G1",
+      "id": "I1",
       "version": "0.11",
+      "status": "done",
+      "title": "Default contexts that show every panel",
+      "summary": "Home, Art, Dev and Focus are rebuilt on the 24-point grid and together include a Shell, Folder, View and Launcher panel, so a fresh install shows what panels can do.",
+      "commit": "ccaf3e8",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "I2",
+      "version": "0.11",
+      "status": "done",
+      "title": "Back to the built-in layout, with undo",
+      "summary": "“Use the built-in layout” in Settings and the command bar replaces your layout in one step, and Ctrl+Z restores the one you had.",
+      "commit": "ccaf3e8",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "I3",
+      "version": "0.11",
+      "status": "done",
+      "title": "Motion that explains",
+      "summary": "Islands glide when you undo, redo or switch context, dropped panels spring onto the grid, parts and sheets animate in, sheets fade out, and presses give feedback. All of it respects reduced motion.",
+      "commit": "ccaf3e8",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "I4",
+      "version": "0.11",
+      "status": "done",
+      "title": "An animated welcome tour",
+      "summary": "A centred sheet with a short logo intro, seven animated feature scenes, then folder and hotkey setup. It replaces the text tour in Settings.",
+      "commit": "ccaf3e8",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "I5",
+      "version": "0.11",
+      "status": "done",
+      "title": "Small fixes from daily use",
+      "summary": "All settings opens from Quick settings again (the window lost focus and closed it first), and the Halo clock has more room before the pill’s rounded end.",
+      "commit": "ccaf3e8",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "G1",
+      "version": "0.12",
       "status": "planned",
       "title": "Checked by hand on a real desktop",
       "summary": "Dragging shortcuts between categories, launching from the Desktop launcher, high-DPI screens, the day theme, and an Explorer restart while the icons are hidden."
     },
     {
       "id": "G2",
-      "version": "0.11",
+      "version": "0.12",
       "status": "planned",
       "title": "New shortcuts offered after a cleanup",
       "summary": "A shortcut that lands on the Desktop later is suggested for its category instead of waiting for the next full cleanup."
     },
     {
       "id": "G3",
-      "version": "0.11",
+      "version": "0.12",
       "status": "planned",
       "title": "Undo cleanup from any context",
       "summary": "Ctrl+Z after a cleanup removes the Desktop launcher everywhere, not only in the context where it was applied."
@@ -369,5 +448,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-10-28T01:03:03+01:00"
+  "generatedAt": "2026-11-02T02:43:24+01:00"
 }

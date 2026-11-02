@@ -533,6 +533,7 @@ nav.main a:hover { background: var(--hover); color: var(--text-1); }
 @media (max-width: 600px) { .idet p, .idet .meta { padding-left: 46px; } }
 .rm-foot { margin-top: 18px; color: var(--text-3); font-size: 14px; }
 .rm-empty { padding: 28px; text-align: center; color: var(--text-3); border: 1px dashed var(--line-2); border-radius: 18px; }
+.rm-group { margin: 28px 0 10px; color: var(--text-3); font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
 
 /* ───────── download ───────── */
 .dl { display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center; padding: clamp(24px, 4vw, 40px); border-radius: 28px; background: var(--surface-1); border: 1px solid var(--line-2); box-shadow: var(--drop); position: relative; overflow: hidden; }
@@ -609,3 +610,34 @@ html.intro { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
 }
+
+/* ───────── additions: scroll progress, nav spy, new scenes, latest cards, roadmap tools ───────── */
+.progress { position: fixed; z-index: 60; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }
+nav.main a[aria-current=true] { color: var(--text-1); box-shadow: inset 0 -2px 0 var(--accent); border-radius: 2px; }
+.term { margin: 2px 0 6px; padding: 10px 12px; border-radius: 12px; background: color-mix(in oklab, var(--bg) 82%, #000); border: 1px solid var(--line-1); font: 500 11.5px/1.7 ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--text-2); min-height: 92px; }
+.term[hidden] { display: none; }
+.term .tl { min-height: 1.7em; white-space: nowrap; overflow: hidden; }
+.term .tl.ok { color: var(--accent-ink); }
+.latest { padding-top: 0; }
+.lgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.lcard { display: grid; gap: 8px; align-content: start; padding: 20px 20px 18px; border-radius: 22px; text-decoration: none; color: inherit; background: var(--surface-1); border: 1px solid var(--line-1); box-shadow: var(--hl);
+  transition: transform calc(.4s * var(--dur)) var(--spring), border-color .2s, background .2s; }
+.lcard:hover { transform: translateY(-3px); border-color: var(--line-2); background: color-mix(in oklab, var(--surface-1) 90%, var(--accent)); }
+.lcard:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.lmeta { font: 650 12.5px/1 var(--font); color: var(--accent-ink); letter-spacing: .02em; }
+.lcard h3 { font: 750 1.1rem/1.25 var(--display); letter-spacing: -.015em; }
+.lcard p { color: var(--text-2); font-size: 14.5px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.lgo { margin-top: 4px; font: 650 13px/1 var(--font); color: var(--text-3); transition: color .2s; }
+.lcard:hover .lgo { color: var(--text-1); }
+.rm-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.rm-search { flex: 1 1 220px; max-width: 360px; height: 40px; padding: 0 16px; border-radius: 99px; font: 500 15px/1 var(--font); color: var(--text-1); background: transparent; border: 0; box-shadow: inset 0 0 0 1px var(--line-2); }
+.rm-search::placeholder { color: var(--text-3); }
+.rm-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rm-expand { height: 40px; padding: 0 16px; border-radius: 99px; font: 650 14px/1 var(--font); color: var(--text-2); box-shadow: inset 0 0 0 1px var(--line-2); }
+.rm-expand:hover { background: var(--hover); color: var(--text-1); }
+.item.flash > .ibtn2 { animation: rmflash 1.8s var(--ease); }
+@keyframes rmflash { 0%, 60% { background: var(--accent-soft); } 100% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .progress { transition: none; } .lcard { transition: none; } .lcard:hover { transform: none; } }
+
+/* the roadmap changes height as you filter and search: no snapping there */
+#roadmap, #latest { scroll-snap-align: none; }

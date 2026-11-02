@@ -1,4 +1,4 @@
-// The seven feature scenes for the hero gallery. Each has the markup it needs (`html`) and a script
+// The nine feature scenes for the hero gallery. Each has the markup it needs (`html`) and a script
 // (`run(a)`) written against the small engine API in gallery.js: wait, say, on/off, cursor, fly, drag,
 // type, count, halo. `steps` is the number of say() calls, used for the progress dot.
 const ico = (id) => `<svg class="i" viewBox="0 0 24 24"><use href="#${id}"/></svg>`;
@@ -175,6 +175,51 @@ export const SCENES = [
       await a.cursor.to(go); a.cursor.click(); await a.wait(300);
       pt.innerHTML = "<b>Archived 41 files · 2.3 GB</b><br>Restore any of them, any time."; go.textContent = "Done"; go.classList.add("ghost");
       s.forEach((el) => { el.textContent = "0"; }); a.halo.status("Archived 41 files · Ctrl+Z undoes"); a.cursor.hide(); await a.wait(2600);
+    },
+  },
+  {
+    id: "cleanup", short: "Desktop cleanup", title: "Desktop cleanup: one launcher, nothing moved", steps: 5,
+    desc: "An opt-in tidy of the Windows desktop. Shortcuts are sorted into categories you can adjust in a preview, then collected into one Desktop launcher with a tab per category. The shortcut files stay where they are, the native icons are hidden only while you want that, and one Ctrl+Z brings it all back.",
+    html: `<div class="scene"><div class="cols">
+      ${isl("i-monitor", "Desktop", "6 loose", row("doc", "VS", "Visual Studio Code", "", "cl on", 'data-k="d1"') + row("png", "ST", "Steam", "", "cl on", 'data-k="d2"') + row("doc", "WD", "Word", "", "cl on", 'data-k="d3"') + row("jpg", "CH", "Chrome", "", "cl on", 'data-k="d4"') + row("exe", "TM", "Terminal", "", "cl on", 'data-k="d5"') + row("zip", "XL", "Excel", "", "cl on", 'data-k="d6"') + `<div class="empty pop" data-k="clear">A clear desktop.</div>`)}
+      <div class="isl pop" data-k="lau"><div class="ih"><span class="ic">${ico("i-islands")}</span>Desktop launcher<span class="cnt">4 tabs</span></div><div class="body"><div class="tabs" style="padding:0 0 6px"><span class="on">Code</span><span>Games</span><span>Office</span><span>Web</span></div>${apps([["VS", "#3b82f6", "#1d4ed8"], ["Te", "#64748b", "#334155"], ["Gi", "#f97316", "#c2410c"], ["Do", "#14b8a6", "#0f766e"]])}</div></div>
+    </div>
+    <div class="plan pop" data-k="plan" style="position:absolute;left:0;right:0;bottom:0;z-index:5;background:color-mix(in oklab, var(--surface-1) 94%, var(--accent));"><div class="pt" data-k="pt"><b>Preview: 6 shortcuts into 4 categories</b><br>Each one comes with a reason. Nothing has moved yet.</div><span class="go" data-k="go">Apply</span></div>
+    ${toast("Desktop cleaned up")}${key("Ctrl", "Z")}</div>`,
+    async run(a) {
+      const rows = [1, 2, 3, 4, 5, 6].map((n) => a.q(`[data-k=d${n}]`));
+      const [plan, go, lau, clear, toastEl, keyEl, cnt] = ["plan", "go", "lau", "clear", "toast", "key", "cnt"].map((k) => a.q(`[data-k=${k}]`));
+      a.say("Shortcuts pile up on the Windows desktop"); await a.wait(1600);
+      a.say("A preview sorts them into categories, with the reason for each"); a.on(plan); await a.wait(2600);
+      a.say("Apply makes one Desktop launcher. No shortcut file is moved"); await a.cursor.to(go); a.cursor.click(); await a.wait(300); a.off(plan);
+      for (const r of rows) { a.off(r); await a.wait(160); }
+      cnt.textContent = "0 loose"; a.on(clear); a.on(lau); a.halo.status("Desktop launcher ready · Ctrl+Z undoes"); a.cursor.hide(); await a.wait(2000);
+      a.say("The native icons stay hidden only while you want that"); a.on(toastEl); await a.wait(2200);
+      a.say("One Ctrl+Z puts everything back"); a.off(toastEl); a.on(keyEl); await a.wait(900); a.off(keyEl, clear, lau);
+      cnt.textContent = "6 loose"; a.halo.status(null); for (const r of rows) { a.on(r); await a.wait(120); }
+      await a.wait(1400);
+    },
+  },
+  {
+    id: "shell", short: "Shell panel", title: "Shell panel: the commands you keep retyping", steps: 4,
+    desc: "Save the commands you keep retyping, each with its working folder. Run them in Windows Terminal, or right inside the panel in a real terminal with its processes listed. A watch tells you when a tool finishes, goes quiet waiting for you, or prints a word you pick.",
+    html: `<div class="scene"><div class="cols">
+      ${isl("i-pulse", "Shell", "3 presets", `<div class="tabs" style="padding:0 0 6px"><span class="on" data-k="st1">Presets</span><span data-k="st2">Terminal</span></div>
+        <div data-k="sp1">${row("exe", "&gt;_", "npm run dev", `<span class="sg">site</span>`, "", 'data-k="pr"') + row("exe", "&gt;_", "cargo test", `<span class="sg">app</span>`) + row("exe", "&gt;_", "git status", `<span class="sg">notes</span>`)}</div>
+        <div class="term" data-k="sp2" hidden><div class="tl" data-k="l1"></div><div class="tl" data-k="l2"></div><div class="tl ok" data-k="l3"></div></div>`)}
+    </div>
+    <div class="plan pop" data-k="watch"><div class="pt"><b>Watch: finished</b><br>The dev server printed “ready”. You can go back to what you were doing.</div></div>
+    </div>`,
+    async run(a) {
+      const [st1, st2, sp1, sp2, pr, watch] = ["st1", "st2", "sp1", "sp2", "pr", "watch"].map((k) => a.q(`[data-k=${k}]`));
+      const [l1, l2, l3] = ["l1", "l2", "l3"].map((k) => a.q(`[data-k=${k}]`));
+      a.say("Saved commands, each with its working folder"); await a.wait(1700);
+      a.say("Run here opens a real terminal inside the panel"); await a.cursor.to(pr); a.cursor.click(); pr.classList.add("sel"); await a.wait(300);
+      st1.classList.remove("on"); st2.classList.add("on"); sp1.hidden = true; sp2.hidden = false;
+      await a.type(l1, "PS C:\site> npm run dev", 35); await a.wait(300); l2.textContent = "> vite --host"; await a.wait(700);
+      a.say("A watch tells you when it finishes or goes quiet"); l3.textContent = "ready in 312 ms"; a.cursor.hide(); await a.wait(700);
+      a.on(watch); a.halo.status("dev server: ready"); a.halo.ping(); await a.wait(2800);
+      a.say("Stop and Run again are one click away"); await a.wait(1600);
     },
   },
 ];
