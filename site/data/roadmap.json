@@ -92,7 +92,7 @@
       "version": "0.12",
       "name": "Follow-ups",
       "status": "in_progress",
-      "summary": "What the desktop cleanup left open: checks on a real desktop, shortcuts that show up later, and undo that works from anywhere."
+      "summary": "Desktop cleanup and signed updates, followed by planned improvements to Quick Settings, panel appearance, movable docks, screen-fit recovery and the Shelf. Primary-screen placement comes first; Windows 11 acrylic depends on safe backdrop testing."
     },
     {
       "version": "1.0",
@@ -483,6 +483,69 @@
       "date": "2026-11-18"
     },
     {
+      "id": "G9",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Updates in Quick Settings",
+      "summary": "See available updates, check for a new version, read release notes and install with a restart from Quick Settings. Progress and errors stay in sync with full Settings, and the brief Halo notification stays."
+    },
+    {
+      "id": "G10",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Each panel, its own appearance",
+      "summary": "Give each content panel its own tint in each context, even when grouped. Choose icons, names or both when collapsed and independently hide expanded names, with accessible names and stable identifiers to keep similar panels distinguishable."
+    },
+    {
+      "id": "G11",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Collapsed sizes and separate locks",
+      "summary": "Fit a collapsed container to its contents or set its width for a floating chip and its length along a dock edge. Keep expanded and lock position and size independently; locked groups resist regrouping and neighboring docks moving or shrinking them."
+    },
+    {
+      "id": "G12",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Move docks and bring panels together",
+      "summary": "Move docks along an edge, pull them free or drag panels to any of the four edges to dock. Drop a panel or whole group onto an existing dock to join it, with a preview, cancellation and one-step undo while preserving panel order and the destination layout."
+    },
+    {
+      "id": "G13",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Top-edge panels that roll up",
+      "summary": "A top-docked panel opens downward with its title and handle below the content, then rolls upward into a compact strip. Floating panels and panels on other edges keep their normal header position."
+    },
+    {
+      "id": "G14",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Screen-fit recovery and All panels",
+      "summary": "Temporarily fit panels to a smaller primary-screen work area without losing saved positions or locks. Scroll crowded docks, use temporary floating recovery chips when needed, and reach every panel through a keyboard-accessible All panels browser. Full multi-monitor placement and shared-edge avoidance are not part of this step."
+    },
+    {
+      "id": "G15",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Apps toward the upper right",
+      "summary": "New and reset built-in layouts put Apps near the upper right, floating in Home and right-docked in Dev and Art. Existing layouts stay untouched; an explicit Apps-only action can separate and reposition it without resetting the rest of the context."
+    },
+    {
+      "id": "G16",
+      "version": "0.12",
+      "status": "planned",
+      "title": "A shorter, themed Shelf",
+      "summary": "Keep the Shelf on the right with a shorter 160-DIP resting strip, adjustable from 80 to 320 DIP and movable vertically. Its expanded panel adopts the app’s colors and rounded styling without reducing its normal capacity or changing how it holds files."
+    },
+    {
+      "id": "G17",
+      "version": "0.12",
+      "status": "planned",
+      "title": "Windows 11 acrylic, when safe",
+      "summary": "Choose Auto, Acrylic or the current translucent style. Auto prefers acrylic on Windows 11 only where testing proves the backdrop stays inside the intended surface; unsupported or unsafe surfaces keep a readable fallback. Windows 11 support remains conditional on that validation."
+    },
+    {
       "id": "H1",
       "version": "1.0",
       "status": "planned",
@@ -497,5 +560,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-18T16:34:40+01:00"
+  "generatedAt": "2026-11-18T16:52:27+01:00"
 }
