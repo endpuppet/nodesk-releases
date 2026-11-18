@@ -461,6 +461,15 @@
       "date": "2026-11-02"
     },
     {
+      "id": "G8",
+      "version": "0.12",
+      "status": "done",
+      "title": "An update that installs itself",
+      "summary": "noDesk checks once a day for a new build, accepts only one signed with the noDesk key, and installs it with one click and a restart. Settings, layouts, apps and your file history all come through the update untouched.",
+      "commit": "79fb33e",
+      "date": "2026-11-18"
+    },
+    {
       "id": "H1",
       "version": "1.0",
       "status": "planned",
@@ -475,5 +484,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-17T18:27:09+01:00"
+  "generatedAt": "2026-11-18T14:04:18+01:00"
 }
