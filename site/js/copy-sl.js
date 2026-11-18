@@ -1,5 +1,6 @@
 // Exact English source copy maps to Slovenian. Keep product names and sample filenames intact.
 export const copySl = {
+  "Files, apps and actions, at home on your desktop. You stay in control of every move.": "Datoteke, aplikacije in dejanja, doma na vašem namizju. Vsak premik ostane pod vašim nadzorom.",
   "carousel": "vrtiljak", "Carbon": "Oglje", "Dusk": "Mrak", "Graphite": "Grafit", "Felt": "Klobučevina", "Walnut": "Oreh", "Plum": "Sliva",
   "Lamp": "Svetilka", "Brass": "Medenina", "Coral": "Korala", "Rose": "Vrtnica", "Iris": "Perunika", "Sky": "Nebo", "Teal": "Turkiz", "Fern": "Praprot",
   "No tint at all: true black at night, white by day. The default.": "Brez barvnega odtenka: ponoči črna, podnevi bela. Privzeta tema.",

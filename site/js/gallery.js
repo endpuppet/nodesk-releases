@@ -2,7 +2,8 @@
 // A scene is replaced wholesale when it starts, so nothing needs resetting. Playback pauses when the
 // gallery is off-screen, the tab is hidden, or the person pauses it. Under prefers-reduced-motion
 // each scene runs to its end state at once and nothing advances by itself.
-import { SCENES } from "./scenes.js?v=540d06a4";
+import { SCENES } from "./scenes.js?v=a2c304d5";
+import { translate } from './locale.js';
 
 const $ = (id) => document.getElementById(id);
 const CANCEL = Symbol("cancel");
@@ -10,6 +11,14 @@ const CANCEL = Symbol("cancel");
 export function initGallery(ready = Promise.resolve()) {
   const box = $("stagebox"), stage = $("stage"), host = $("scene-host"), cursorEl = $("cursor"), flyer = $("flyer");
   const dotsEl = $("dots"), ctl = $("gctl"), toggle = $("g-toggle");
+  const picker = $('feature-select');
+  const updatePicker = () => {
+    [...picker.options].forEach((option, i) => { option.textContent = `${i + 1}. ${translate(SCENES[i].short)}`; });
+  };
+  SCENES.forEach((scene, i) => picker.add(new Option(scene.short, String(i))));
+  updatePicker();
+  window.addEventListener('nd:locale', updatePicker);
+  picker.addEventListener('change', () => play(Number(picker.value)));
   const haloEl = $("halo"), haloCur = $("halo-cur"), haloStatus = $("halo-status");
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   let reduced = motion.matches;
@@ -153,6 +162,8 @@ export function initGallery(ready = Promise.resolve()) {
 
   function meta(i) {
     const s = SCENES[i];
+    picker.value = String(i);
+    $('gal').toggleAttribute('data-static', reduced);
     $("g-num").innerHTML = `<b>${i + 1}</b> of ${SCENES.length}`;
     $("g-title").textContent = s.title;
     $("g-desc").textContent = s.desc;
@@ -217,6 +228,7 @@ export function initGallery(ready = Promise.resolve()) {
     syncPause();
   });
   $("gal").addEventListener("keydown", (e) => {
+    if (e.target === picker) return;
     if (e.key === "ArrowRight") { step(1); e.preventDefault(); }
     if (e.key === "ArrowLeft") { step(-1); e.preventDefault(); }
   });
