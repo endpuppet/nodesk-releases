@@ -1,6 +1,7 @@
 // "Fresh from the workbench": the newest finished items, taken from the same roadmap data. A card opens
 // that item in the roadmap below. Text only goes in through textContent.
-const fmt = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+import { locale } from './locale.js';
+const fmt = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString(locale === 'sl' ? 'sl-SI' : 'en-GB', { day: "numeric", month: "short", timeZone: "UTC" });
 
 export function initLatest(root, data, count = 6) {
   if (!root) return;
@@ -12,7 +13,11 @@ export function initLatest(root, data, count = 6) {
     const a = document.createElement("a");
     a.className = "lcard";
     a.href = "#roadmap";
-    const meta = document.createElement("span"); meta.className = "lmeta"; meta.textContent = `${fmt(i.date)} · ${vname.get(i.version) ?? i.version}`;
+    const meta = document.createElement("span"); meta.className = "lmeta";
+    const date = document.createElement('span'), name = document.createElement('span');
+    const updateDate = () => { date.textContent = fmt(i.date); };
+    updateDate(); window.addEventListener('nd:locale', updateDate);
+    name.textContent = vname.get(i.version) ?? i.version; meta.append(date, ' · ', name);
     const h = document.createElement("h3"); h.textContent = i.title;
     const p = document.createElement("p"); p.textContent = i.summary ?? "";
     const go = document.createElement("span"); go.className = "lgo"; go.textContent = `${i.id} in the roadmap`;

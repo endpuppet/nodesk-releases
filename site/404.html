@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="sl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Not found – noDesk</title>
+<title>Strani ni mogoče najti – noDesk</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -21,12 +21,25 @@
 </head>
 <body>
   <h1>404</h1>
-  <p>That page is not on this desktop. Nothing was moved or deleted.</p>
+  <p id="message">Te strani ni na tem namizju. Nič ni bilo premaknjeno ali izbrisano.</p>
+  <label for="language">Jezik / Language</label>
+  <select id="language" style="font:inherit;padding:10px;border-radius:10px"><option value="sl" lang="sl">Slovenščina</option><option value="en" lang="en">English</option></select>
   <!-- Absolute "/" would break under a project subpath, so go up from wherever this page is served. -->
-  <a id="home" href="./">Back to noDesk</a>
+  <a id="home" href="./">Nazaj na noDesk</a>
   <script>
     // On a project site (user.github.io/repo/missing) "/" is the wrong root: use the first path segment only when it is the repo.
     (function () {
+      var language = document.getElementById('language');
+      try { language.value = localStorage.getItem('nodesk.site.language') === 'en' ? 'en' : 'sl'; } catch (e) {}
+      function apply() {
+        var en = language.value === 'en';
+        document.documentElement.lang = en ? 'en' : 'sl';
+        document.title = en ? 'Not found – noDesk' : 'Strani ni mogoče najti – noDesk';
+        document.getElementById('message').textContent = en ? 'That page is not on this desktop. Nothing was moved or deleted.' : 'Te strani ni na tem namizju. Nič ni bilo premaknjeno ali izbrisano.';
+        document.getElementById('home').textContent = en ? 'Back to noDesk' : 'Nazaj na noDesk';
+      }
+      language.addEventListener('change', function () { try { localStorage.setItem('nodesk.site.language', language.value); } catch (e) {} apply(); });
+      apply();
       var host = location.hostname, seg = location.pathname.split('/')[1];
       if (/\.github\.io$/.test(host) && seg) document.getElementById('home').href = '/' + seg + '/';
       else document.getElementById('home').href = '/';

@@ -2,7 +2,7 @@
 // A scene is replaced wholesale when it starts, so nothing needs resetting. Playback pauses when the
 // gallery is off-screen, the tab is hidden, or the person pauses it. Under prefers-reduced-motion
 // each scene runs to its end state at once and nothing advances by itself.
-import { SCENES } from "./scenes.js?v=794b4d40";
+import { SCENES } from "./scenes.js?v=540d06a4";
 
 const $ = (id) => document.getElementById(id);
 const CANCEL = Symbol("cancel");
@@ -11,7 +11,10 @@ export function initGallery(ready = Promise.resolve()) {
   const box = $("stagebox"), stage = $("stage"), host = $("scene-host"), cursorEl = $("cursor"), flyer = $("flyer");
   const dotsEl = $("dots"), ctl = $("gctl"), toggle = $("g-toggle");
   const haloEl = $("halo"), haloCur = $("halo-cur"), haloStatus = $("halo-status");
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
+  let reduced = motion.matches;
+  let pending = null, reveal = null;
+  const cancelWait = () => { if (pending) { clearTimeout(pending.timer); pending.reject(CANCEL); pending = null; } clearTimeout(reveal); };
   const logicalW = () => parseFloat(getComputedStyle(box).getPropertyValue("--w"));
   const logicalH = () => parseFloat(getComputedStyle(box).getPropertyValue("--h"));
   const scale = () => box.clientWidth / logicalW();
@@ -27,27 +30,38 @@ export function initGallery(ready = Promise.resolve()) {
     stage.style.setProperty("--s", scale());
     stage.toggleAttribute("data-narrow", logicalW() < 500);
   };
-  new ResizeObserver(fit).observe(box);
+  const resize = new ResizeObserver(fit);
+  resize.observe(box);
   fit();
 
   const clock = $("halo-clock");
   const tick = () => { const d = new Date(); clock.textContent = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
-  tick(); setInterval(tick, 20000);
+  tick(); const clockTimer = setInterval(tick, 20000);
 
   // dots
   const dots = SCENES.map((s, i) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "gdot"; b.title = s.short; b.setAttribute("aria-label", `${s.short} (${i + 1} of ${SCENES.length})`);
-    b.append(document.createElement("i"));
+    const label = document.createElement('span'); label.textContent = s.short;
+    b.append(document.createElement("i"), label);
     b.addEventListener("click", () => play(i));
     dotsEl.append(b);
     return b;
   });
 
   // playback state
-  let token = 0, idx = 0, manualPause = false, inView = true;
-  const paused = () => manualPause || !inView || document.hidden;
-  new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.25 }).observe(box);
+  let token = 0, idx = 0, manualPause = false, inView = true, focused = false;
+  const paused = () => manualPause || !inView || document.hidden || focused;
+  const syncPause = () => {
+    const pause = paused();
+    stage.toggleAttribute('data-paused', pause);
+    stage.getAnimations({ subtree: true }).forEach((animation) => pause ? animation.pause() : animation.play());
+  };
+  const visibility = new IntersectionObserver(([e]) => { inView = e.isIntersecting; syncPause(); }, { threshold: 0.25 });
+  visibility.observe(box);
+  document.addEventListener('visibilitychange', syncPause);
+  $('gal').addEventListener('focusin', () => { focused = true; syncPause(); });
+  $('gal').addEventListener('focusout', (e) => { focused = $('gal').contains(e.relatedTarget); syncPause(); });
 
   const rect = (el) => {
     const s = scale(), r = el.getBoundingClientRect(), b = stage.getBoundingClientRect();
@@ -65,7 +79,8 @@ export function initGallery(ready = Promise.resolve()) {
         const now = performance.now();
         if (!paused()) left -= now - last;
         last = now;
-        left <= 0 ? res() : setTimeout(step, paused() ? 250 : 50); // paused (scrolled away, hidden): check back less often
+        if (left <= 0) { pending = null; res(); }
+        else pending = { timer: setTimeout(step, paused() ? 250 : 50), reject: rej };
       };
       step();
     });
@@ -106,6 +121,8 @@ export function initGallery(ready = Promise.resolve()) {
         hide() { cursorEl.classList.add("off"); },
       },
       async fly(from, to, html) {
+        live();
+        if (reduced) return;
         const A = rect(from), B = rect(to);
         flyer.innerHTML = html; flyer.classList.remove("drag"); flyer.hidden = false;
         Object.assign(flyer.style, { left: `${A.x}px`, top: `${A.y}px`, width: `${Math.min(A.w, 240)}px` });
@@ -113,10 +130,12 @@ export function initGallery(ready = Promise.resolve()) {
           [{ transform: "translate(0,0) scale(1)", opacity: 1 }, { transform: `translate(${B.x - A.x + 12}px,${B.y - A.y}px) scale(.82)`, opacity: 0 }],
           { duration: reduced ? 1 : 700, easing: "cubic-bezier(.34,1.36,.64,1)", fill: "forwards" });
         try { await an.finished; } catch { /* cancelled */ }
-        flyer.hidden = true;
         live();
+        flyer.hidden = true;
       },
       async drag(from, x, y, html) {
+        live();
+        if (reduced) return;
         const A = rect(from);
         flyer.innerHTML = html; flyer.hidden = false; flyer.classList.remove("drag");
         Object.assign(flyer.style, { left: `${A.x}px`, top: `${A.y}px`, width: `${Math.min(A.w, 220)}px` });
@@ -127,7 +146,7 @@ export function initGallery(ready = Promise.resolve()) {
         await wait(1000);
         flyer.hidden = true; flyer.classList.remove("drag");
       },
-      async type(el, text, ms = 50) { for (const ch of text) { el.textContent += ch; await wait(ms); } },
+      async type(el, text, ms = 50) { if (reduced) { el.textContent = text; return; } for (const ch of text) { live(); el.textContent += ch; await wait(ms); } },
     };
     return api;
   }
@@ -143,6 +162,7 @@ export function initGallery(ready = Promise.resolve()) {
 
   async function play(i) {
     const my = ++token;
+    cancelWait();
     idx = (i + SCENES.length) % SCENES.length;
     const scene = SCENES[idx];
     meta(idx);
@@ -156,7 +176,22 @@ export function initGallery(ready = Promise.resolve()) {
     setCtx(scene.id === "halo" ? "home" : "dev");
     $("scap").classList.remove("on");
     host.innerHTML = scene.html;
-    setTimeout(() => host.firstElementChild?.classList.add("in"), 30);
+    // Reduced motion shows the decision point, not an empty desk after the demo has undone itself.
+    if (reduced) {
+      host.firstElementChild?.classList.add('in');
+      const visible = {
+        inbox: ['hot', 'sg', 'why'], cmd: ['cmd', 'pv'], halo: [], docks: ['panel'],
+        shelf: ['peek'], rename: ['n1', 'n2', 'n3', 'apply'], health: ['pair', 'plan'], cleanup: ['plan'], shell: ['watch'],
+      };
+      for (const key of visible[scene.id]) host.querySelector(`[data-k="${key}"]`)?.classList.add('on');
+      const typed = host.querySelector('[data-k="typed"]'); if (typed) typed.textContent = 'tidy downloads';
+      [38, 12, 3].forEach((value, i) => { const n = host.querySelector(`[data-k="s${i + 1}"]`); if (n) n.textContent = value; });
+      api.say(scene.short);
+      dots[idx].style.setProperty('--p', 1);
+      return;
+    }
+    if (reduced) host.firstElementChild?.classList.add('in');
+    else reveal = setTimeout(() => { if (my === token) host.firstElementChild?.classList.add('in'); }, 30);
     try {
       await scene.run(api);
       if (my !== token) return;
@@ -174,9 +209,12 @@ export function initGallery(ready = Promise.resolve()) {
   $("g-prev").addEventListener("click", () => step(-1));
   $("g-next").addEventListener("click", () => step(1));
   toggle.addEventListener("click", () => {
+    focused = false;
     manualPause = !manualPause;
     ctl.toggleAttribute("data-paused", manualPause);
     toggle.setAttribute("aria-label", manualPause ? "Play animation" : "Pause animation");
+    toggle.setAttribute('aria-pressed', String(manualPause));
+    syncPause();
   });
   $("gal").addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") { step(1); e.preventDefault(); }
@@ -188,6 +226,16 @@ export function initGallery(ready = Promise.resolve()) {
   box.addEventListener("pointerup", (e) => { if (x0 != null && Math.abs(e.clientX - x0) > 50) step(e.clientX < x0 ? 1 : -1); x0 = null; });
   box.addEventListener("pointercancel", () => { x0 = null; });
   if (reduced) ctl.querySelector("#g-toggle").hidden = true;
+  motion.addEventListener('change', () => {
+    reduced = motion.matches;
+    toggle.hidden = reduced;
+    play(idx);
+  });
+  window.addEventListener('pagehide', () => {
+    ++token; cancelWait(); clearInterval(clockTimer); resize.disconnect(); visibility.disconnect();
+    stage.getAnimations({ subtree: true }).forEach((animation) => animation.cancel());
+  }, { once: true });
+  window.addEventListener('pageshow', (e) => { if (e.persisted) location.reload(); });
   meta(0);
   ready.then(() => play(0));
 }

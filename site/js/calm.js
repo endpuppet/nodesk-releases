@@ -3,7 +3,7 @@ export function initTry() {
   const box = document.getElementById("try");
   if (!box) return;
   const rows = [...box.querySelectorAll(".to")];
-  rows.forEach((el) => { el.dataset.from = el.textContent; });
+  rows.forEach((el, i) => { el.dataset.from = i === 1 ? 'Desktop' : 'Downloads'; });
   const chip = document.getElementById("try-chip");
   const journal = document.getElementById("try-journal");
   const [bPreview, bApply, bUndo] = ["try-preview", "try-apply", "try-undo"].map((id) => document.getElementById(id));

@@ -216,7 +216,7 @@ export const SCENES = [
       a.say("Saved commands, each with its working folder"); await a.wait(1700);
       a.say("Run here opens a real terminal inside the panel"); await a.cursor.to(pr); a.cursor.click(); pr.classList.add("sel"); await a.wait(300);
       st1.classList.remove("on"); st2.classList.add("on"); sp1.hidden = true; sp2.hidden = false;
-      await a.type(l1, "PS C:\site> npm run dev", 35); await a.wait(300); l2.textContent = "> vite --host"; await a.wait(700);
+      await a.type(l1, "PS C:\\site> npm run dev", 35); await a.wait(300); l2.textContent = "> vite --host"; await a.wait(700);
       a.say("A watch tells you when it finishes or goes quiet"); l3.textContent = "ready in 312 ms"; a.cursor.hide(); await a.wait(700);
       a.on(watch); a.halo.status("dev server: ready"); a.halo.ping(); await a.wait(2800);
       a.say("Stop and Run again are one click away"); await a.wait(1600);

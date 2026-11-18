@@ -15,7 +15,7 @@ export function playIntro(mat) {
   const words = [...h1.querySelectorAll(".w")];
   const timers = [];
   let finished = false;
-  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms * .5));
 
   const place = () => {
     const vw = innerWidth, vh = innerHeight;
@@ -49,6 +49,8 @@ export function playIntro(mat) {
     document.querySelectorAll("[data-st]").forEach((e) => e.classList.remove("on"));
     ready.openGallery();
     removeEventListener("pointerdown", skip); removeEventListener("keydown", skip); removeEventListener("resize", onResize);
+    removeEventListener('pagehide', finish);
+    motion.removeEventListener('change', finish);
     resolveDone();
   };
   const skip = () => {
@@ -62,6 +64,9 @@ export function playIntro(mat) {
   addEventListener("pointerdown", skip, { once: true });
   addEventListener("keydown", skip, { once: true });
   addEventListener("resize", onResize);
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  motion.addEventListener('change', finish);
+  addEventListener('pagehide', finish, { once: true });
 
   at(250, () => root.classList.add("logo"));
   at(1100, () => root.classList.add("name"));

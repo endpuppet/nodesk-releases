@@ -1,5 +1,6 @@
 // Roadmap: renders ONLY from data/roadmap.json (schema 1). If the fetch or the shape check fails, the
 // same data inlined in index.html (#roadmap-fallback) is used. All text goes in through textContent.
+import { locale, translate } from './locale.js';
 const STATUS = { done: "Done", in_progress: "In progress", planned: "Planned", exploring: "Exploring" };
 const ORDER = ["done", "in_progress", "planned", "exploring"];
 
@@ -26,7 +27,7 @@ const icon = (id, cls = "i") => {
 const chip = (status) => el("span", { class: `chip ${status}`, text: STATUS[status] || status });
 const fmtDate = (d) => {
   const t = new Date(`${d}T00:00:00Z`);
-  return Number.isNaN(+t) ? d : t.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  return Number.isNaN(+t) ? d : t.toLocaleDateString(locale === 'sl' ? 'sl-SI' : 'en-GB', { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 };
 const valid = (d) => d && d.schema === 1 && Array.isArray(d.versions) && Array.isArray(d.items)
   && d.versions.every((v) => v.version && v.name && STATUS[v.status]) && d.items.every((i) => i.id && i.version && i.title && STATUS[i.status]);
@@ -59,7 +60,7 @@ export async function initRoadmap(root) {
   const openV = new Set(data.versions.filter((v) => v.status === "in_progress").map((v) => v.version));
   const openI = new Set();
 
-  const hit = (i) => !query || `${i.id} ${i.title} ${i.summary ?? ""}`.toLowerCase().includes(query);
+  const hit = (i) => !query || `${i.id} ${i.title} ${i.summary ?? ""} ${translate(i.title)} ${translate(i.summary ?? '')}`.toLowerCase().includes(query);
   const matchItems = (g) => g.items.filter((i) => (filter === "all" || i.status === filter) && hit(i));
   const showV = (g) => (query ? matchItems(g).length > 0 : filter === "all" || g.v.status === filter || matchItems(g).length > 0);
 
@@ -74,12 +75,12 @@ export async function initRoadmap(root) {
         bar.firstChild.style.width = `${Math.round((done / all) * 100)}%`;
         return el("div", { class: "rm-now" }, bar,
           el("span", { text: `${done} of ${all} done` }),
-          curPhaseVersion && el("span", { text: `Now building ${curPhaseVersion.version}, ${curPhaseVersion.name}` }));
+          curPhaseVersion && el("span", { text: `${locale === 'sl' ? 'V razvoju' : 'Now building'} ${curPhaseVersion.version}, ${translate(curPhaseVersion.name)}` }));
       })(),
       (() => {
         const bar = el("div", { class: "filters", role: "group", "aria-label": "Filter the roadmap by status" });
         for (const f of ["all", ...ORDER]) {
-          const b = el("button", { type: "button", "aria-pressed": String(filter === f) }, f === "all" ? "All" : STATUS[f], el("span", { class: "n", text: String(count(f)) }));
+          const b = el("button", { type: "button", 'data-filter': f, "aria-pressed": String(filter === f) }, f === "all" ? "All" : STATUS[f], el("span", { class: "n", text: String(count(f)) }));
           b.addEventListener("click", () => { filter = f; render(); });
           bar.append(b);
         }
@@ -102,7 +103,7 @@ export async function initRoadmap(root) {
 
     const track = el("nav", { class: "track", "aria-label": "Versions" });
     for (const g of byVersion.values()) {
-      const a = el("a", { class: `node ${g.v.status}${showV(g) ? "" : " dim"}`, href: `#v-${g.v.version}`, "aria-label": `${g.v.version} ${g.v.name}, ${STATUS[g.v.status]}` },
+      const a = el("a", { class: `node ${g.v.status}${showV(g) ? "" : " dim"}`, href: `#v-${g.v.version}`, "aria-label": `${g.v.version} ${translate(g.v.name)}, ${translate(STATUS[g.v.status])}` },
         el("span", { class: "dot", "aria-hidden": "true" }, g.v.status === "done" ? icon("i-check", "i") : g.v.phase ?? ""),
         el("span", { class: "v", text: g.v.version }),
         el("span", { class: "nm", text: g.v.name }));
@@ -124,7 +125,7 @@ export async function initRoadmap(root) {
       shown++;
       const { v } = g;
       const done = g.items.filter((i) => i.status === "done").length;
-      const bits = [v.phase && `Phase ${v.phase}`, g.items.length && `${done} of ${g.items.length} done`, v.date && fmtDate(v.date)].filter(Boolean);
+      const bits = [v.phase && translate(`Phase ${v.phase}`), g.items.length && translate(`${done} of ${g.items.length} done`), v.date && fmtDate(v.date)].filter(Boolean);
       const open = openV.has(v.version);
       const bodyId = `vb-${v.version}`;
       const head = el("button", { class: "vhead", type: "button", "aria-expanded": String(open), "aria-controls": bodyId },
@@ -156,12 +157,17 @@ export async function initRoadmap(root) {
     if (!shown) list.append(el("p", { class: "rm-empty", text: "Nothing in this state right now." }));
     kids.push(list);
 
-    kids.push(el("p", { class: "rm-foot", text: `${fromFallback ? "Showing the copy bundled with this page. " : ""}Updated ${fmtDate(data.generatedAt.slice(0, 10))}. “Done” means built and committed; the alpha is not public yet.` }));
+    const updated = data.generatedAt ? fmtDate(data.generatedAt.slice(0, 10)) : (locale === 'sl' ? 'priloženi podatki' : 'bundled data');
+    kids.push(el("p", { class: "rm-foot", text: locale === 'sl'
+      ? `${fromFallback ? 'Prikazana je kopija, priložena strani. ' : ''}Posodobljeno: ${updated}. »Dokončano« pomeni razvito in shranjeno; alfa še ni javno dostopna.`
+      : `${fromFallback ? 'Showing the copy bundled with this page. ' : ''}Updated: ${updated}. “Done” means built and committed; the alpha is not public yet.` }));
 
     // keep focus on the control the person just used across the re-render
-    const active = document.activeElement?.classList?.contains("rm-search") || document.activeElement?.classList?.contains("rm-expand") ? null : document.activeElement?.getAttribute?.("aria-controls") ?? (document.activeElement?.closest?.(".filters") ? document.activeElement.textContent : null);
+    const activeFilter = document.activeElement?.dataset?.filter;
+    const active = document.activeElement?.getAttribute?.('aria-controls');
     root.replaceChildren(...kids);
     root.style.minHeight = "";
+    if (activeFilter) root.querySelector(`[data-filter="${activeFilter}"]`)?.focus({ preventScroll: true });
     if (active) {
       const again = root.querySelector(`[aria-controls="${CSS.escape(active)}"]`)
         ?? [...root.querySelectorAll(".filters button")].find((b) => b.textContent.startsWith(active.replace(/\d+$/, "")));
@@ -181,6 +187,7 @@ export async function initRoadmap(root) {
     setTimeout(() => row?.classList.remove("flash"), 1800);
   };
   window.addEventListener("rm:open", (e) => openItem(e.detail));
+  window.addEventListener('nd:locale', render);
   render();
   const m = /^#roadmap\/([A-Za-z0-9._-]+)$/.exec(location.hash);
   if (m) setTimeout(() => openItem(m[1]), 300);

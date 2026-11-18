@@ -8,7 +8,8 @@ export function initMat() {
   if (!canvas) return { ripple() {} };
   const ctx = canvas.getContext("2d");
   const host = canvas.parentElement;
-  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
+  let still = motion.matches;
   let w = 0, h = 0, dpr = 1, dot = "#444", acc = "#fa5", px = -9999, py = -9999, near = 0, raf = 0, visible = true;
   const rings = [];
 
@@ -53,19 +54,24 @@ export function initMat() {
     if (busy || Math.abs(target - near) > 0.01) raf = requestAnimationFrame(loop);
   }
   const kick = () => { if (!raf && !still) raf = requestAnimationFrame(loop); };
+  motion.addEventListener('change', () => {
+    still = motion.matches;
+    if (still) { cancelAnimationFrame(raf); raf = 0; rings.length = 0; near = 0; draw(); }
+  });
 
   host.addEventListener("pointermove", (e) => {
-    if (e.pointerType === "touch") return;
+    if (still || e.pointerType === "touch") return;
     const r = host.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top;
     host.style.setProperty("--gx", `${(px / r.width) * 100}%`); host.style.setProperty("--gy", `${(py / r.height) * 100}%`);
     kick();
   });
   host.addEventListener("pointerleave", () => { px = py = -9999; kick(); });
-  new ResizeObserver(size).observe(host);
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) kick(); }).observe(host);
+  const resize = new ResizeObserver(size); resize.observe(host);
+  const visibility = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) kick(); }); visibility.observe(host);
+  addEventListener('pagehide', () => { cancelAnimationFrame(raf); resize.disconnect(); visibility.disconnect(); }, { once: true });
   addEventListener("nd:theme", () => { // follow the theme while its colours morph
     const t0 = performance.now();
-    const step = () => { colours(); draw(); if (performance.now() - t0 < 800) requestAnimationFrame(step); };
+    const step = () => { colours(); draw(); if (!still && performance.now() - t0 < 800) requestAnimationFrame(step); };
     step();
   });
   colours(); size();
