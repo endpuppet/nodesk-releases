@@ -422,16 +422,20 @@
     {
       "id": "G2",
       "version": "0.12",
-      "status": "planned",
+      "status": "done",
       "title": "New shortcuts offered after a cleanup",
-      "summary": "A shortcut that lands on the Desktop later is suggested for its category instead of waiting for the next full cleanup."
+      "summary": "A shortcut that lands on the Desktop later is suggested for its category instead of waiting for the next full cleanup.",
+      "commit": "2c13137",
+      "date": "2026-11-18"
     },
     {
       "id": "G3",
       "version": "0.12",
-      "status": "planned",
+      "status": "done",
       "title": "Undo cleanup from any context",
-      "summary": "Ctrl+Z after a cleanup removes the Desktop launcher everywhere, not only in the context where it was applied."
+      "summary": "Ctrl+Z after a cleanup removes the Desktop launcher everywhere, not only in the context where it was applied.",
+      "commit": "2c13137",
+      "date": "2026-11-18"
     },
     {
       "id": "G4",
@@ -484,5 +488,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-18T14:04:18+01:00"
+  "generatedAt": "2026-11-18T14:40:10+01:00"
 }
