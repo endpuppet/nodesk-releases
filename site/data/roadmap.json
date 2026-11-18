@@ -465,6 +465,15 @@
       "date": "2026-11-02"
     },
     {
+      "id": "G7",
+      "version": "0.12",
+      "status": "done",
+      "title": "A smoother, tidier interface",
+      "summary": "The Halo says what just happened in plain words, sheets open without a stray focus ring, the launcher grid and Settings pages line up, file rows show what kind of file they are, and idle panels do less work in the background.",
+      "commit": "4b62d3a",
+      "date": "2026-11-04"
+    },
+    {
       "id": "G8",
       "version": "0.12",
       "status": "done",
@@ -488,5 +497,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-18T14:40:10+01:00"
+  "generatedAt": "2026-11-18T16:34:40+01:00"
 }

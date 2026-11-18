@@ -68,7 +68,8 @@ export async function initRoadmap(root) {
 
     kids.push(el("div", { class: "rm-top" },
       (() => {
-        const done = data.items.filter((i) => i.status === "done").length, all = data.items.length;
+        // the same units as the filter chips beside it (a version without items counts once), so "42 of 49" matches "Done 42"
+        const done = count("done"), all = count("all");
         const bar = el("span", { class: "bar", role: "img", "aria-label": `${done} of ${all} items done` }, el("i"));
         bar.firstChild.style.width = `${Math.round((done / all) * 100)}%`;
         return el("div", { class: "rm-now" }, bar,

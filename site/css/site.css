@@ -544,7 +544,7 @@ nav.main a:hover { background: var(--hover); color: var(--text-1); }
 .dl .lock svg { width: 30px; height: 30px; }
 .dl h3 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); letter-spacing: -.03em; margin-bottom: 8px; }
 .dl p { color: var(--text-2); max-width: 56ch; }
-.dl .ver-line { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; color: var(--text-3); font-size: 14px; font-variant-numeric: tabular-nums; }
+.dl .ver-line { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; color: var(--text-3); font-size: 14px; }
 .dl .acts { display: grid; gap: 10px; justify-items: stretch; min-width: 210px; }
 .dl[data-state=ready] .lock { background: var(--accent); color: var(--on-accent); }
 @media (max-width: 760px) { .dl { grid-template-columns: 1fr; } .dl .acts { min-width: 0; } }
