@@ -2,7 +2,7 @@
   "schema": 1,
   "channel": "alpha",
   "current": {
-    "version": "0.12.0-alpha.2"
+    "version": "0.12.0-alpha.3"
   },
   "versions": [
     {
@@ -485,16 +485,20 @@
     {
       "id": "G9",
       "version": "0.12",
-      "status": "planned",
+      "status": "done",
       "title": "Updates in Quick Settings",
-      "summary": "See available updates, check for a new version, read release notes and install with a restart from Quick Settings. Progress and errors stay in sync with full Settings, and the brief Halo notification stays."
+      "summary": "See available updates, check for a new version, read release notes and install with a restart from Quick Settings. Progress and errors stay in sync with full Settings, and the brief Halo notification stays.",
+      "commit": "d854be4",
+      "date": "2026-11-18"
     },
     {
       "id": "G10",
       "version": "0.12",
-      "status": "planned",
+      "status": "done",
       "title": "Each panel, its own appearance",
-      "summary": "Give each content panel its own tint in each context, even when grouped. Choose icons, names or both when collapsed and independently hide expanded names, with accessible names and stable identifiers to keep similar panels distinguishable."
+      "summary": "Give each content panel its own tint in each context, even when grouped. Choose icons, names or both when collapsed and independently hide expanded names, with accessible names and stable identifiers to keep similar panels distinguishable.",
+      "commit": "0079d7f",
+      "date": "2026-11-18"
     },
     {
       "id": "G11",
@@ -560,5 +564,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-18T19:40:45+01:00"
+  "generatedAt": "2026-11-18T23:17:25+01:00"
 }
