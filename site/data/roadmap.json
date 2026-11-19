@@ -2,7 +2,7 @@
   "schema": 1,
   "channel": "alpha",
   "current": {
-    "version": "0.12.0-alpha.3"
+    "version": "0.13.0-alpha.1"
   },
   "versions": [
     {
@@ -92,7 +92,7 @@
       "version": "0.12",
       "name": "Follow-ups",
       "status": "in_progress",
-      "summary": "Desktop cleanup and signed updates, followed by planned improvements to Quick Settings, panel appearance, movable docks, screen-fit recovery and the Shelf. Primary-screen placement comes first; Windows 11 acrylic depends on safe backdrop testing."
+      "summary": "Desktop cleanup and signed updates, followed by planned improvements to Quick Settings, panel appearance and views, movable docks, screen-fit recovery and the Shelf. Primary-screen placement comes first; Windows 11 acrylic depends on safe backdrop testing."
     },
     {
       "version": "1.0",
@@ -503,9 +503,11 @@
     {
       "id": "G11",
       "version": "0.12",
-      "status": "planned",
-      "title": "Collapsed sizes and separate locks",
-      "summary": "Fit a collapsed container to its contents or set its width for a floating chip and its length along a dock edge. Keep expanded and lock position and size independently; locked groups resist regrouping and neighboring docks moving or shrinking them."
+      "status": "done",
+      "title": "Collapsed sizes, locks and panel views",
+      "summary": "Fit a collapsed container to its contents or set its width for a floating chip and its length along a dock edge. Keep expanded and lock position and size independently; locked groups resist regrouping and neighboring docks moving or shrinking them. Any content panel can also switch between a compact list, a detailed list with more per row and a grid whose tiles you can size, remembered per panel.",
+      "commit": "5d2c70e",
+      "date": "2026-11-19"
     },
     {
       "id": "G12",
@@ -564,5 +566,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-18T23:17:25+01:00"
+  "generatedAt": "2026-11-19T13:00:46+01:00"
 }
