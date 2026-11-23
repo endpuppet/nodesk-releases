@@ -552,6 +552,13 @@
       "summary": "Choose Auto, Acrylic or the current translucent style. Auto prefers acrylic on Windows 11 only where testing proves the backdrop stays inside the intended surface; unsupported or unsafe surfaces keep a readable fallback. Windows 11 support remains conditional on that validation."
     },
     {
+      "id": "G18",
+      "version": "0.12",
+      "status": "planned",
+      "title": "noDesk in Slovenian",
+      "summary": "Translate the whole app into Slovenian. On first start, use Slovenian when the system language is Slovenian; otherwise use English."
+    },
+    {
       "id": "H1",
       "version": "1.0",
       "status": "planned",
@@ -566,5 +573,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-19T13:00:46+01:00"
+  "generatedAt": "2026-11-23T09:36:17+01:00"
 }
