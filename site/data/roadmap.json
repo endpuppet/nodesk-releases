@@ -557,9 +557,10 @@
     {
       "id": "G18",
       "version": "0.12",
-      "status": "planned",
+      "status": "in_progress",
       "title": "noDesk in Slovenian",
-      "summary": "Translate the whole app into Slovenian. On first start, use Slovenian when the system language is Slovenian; otherwise use English."
+      "summary": "Translate the whole app into Slovenian. On first start, use Slovenian when the system language is Slovenian; otherwise use English.",
+      "commit": null
     },
     {
       "id": "G19",
@@ -584,5 +585,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-24T11:26:14+01:00"
+  "generatedAt": "2026-11-24T13:05:16+01:00"
 }

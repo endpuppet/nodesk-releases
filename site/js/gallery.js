@@ -2,7 +2,7 @@
 // A scene is replaced wholesale when it starts, so nothing needs resetting. Playback pauses when the
 // gallery is off-screen, the tab is hidden, or the person pauses it. Under prefers-reduced-motion
 // each scene runs to its end state at once and nothing advances by itself.
-import { SCENES } from "./scenes.js?v=085623c1";
+import { SCENES } from "./scenes.js?v=7a547f6b";
 import { translate } from './locale.js';
 
 const $ = (id) => document.getElementById(id);
