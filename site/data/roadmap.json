@@ -530,7 +530,7 @@
       "version": "0.12",
       "status": "in_progress",
       "title": "Screen-fit recovery and All panels",
-      "summary": "Temporarily fit panels to a smaller primary-screen work area without losing saved positions or locks. Scroll crowded docks, use temporary floating recovery chips when needed, and reach every panel through a keyboard-accessible All panels browser. Full multi-monitor placement and shared-edge avoidance are not part of this step.",
+      "summary": "Temporarily fit panels to a smaller primary-screen work area without losing saved positions or locks. Scroll crowded docks, use temporary floating recovery chips when needed, and reach every panel through a keyboard-accessible All panels browser. Full multi-monitor placement and shared-edge avoidance are not part of this step. Long names show whole or as an icon, never cut with dots; a setting chooses whether a dock grows first.",
       "commit": null
     },
     {
@@ -584,5 +584,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-24T00:59:03+01:00"
+  "generatedAt": "2026-11-24T10:41:52+01:00"
 }
