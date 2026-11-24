@@ -512,23 +512,26 @@
     {
       "id": "G12",
       "version": "0.12",
-      "status": "planned",
+      "status": "in_progress",
       "title": "Move docks and bring panels together",
-      "summary": "Move docks along an edge, pull them free or drag panels to any of the four edges to dock. Drop a panel or whole group onto an existing dock to join it, with a preview, cancellation and one-step undo while preserving panel order and the destination layout."
+      "summary": "Move docks along an edge, pull them free or drag panels to any of the four edges to dock. Drop a panel or whole group onto an existing dock to join it, with a preview, cancellation and one-step undo while preserving panel order and the destination layout.",
+      "commit": null
     },
     {
       "id": "G13",
       "version": "0.12",
-      "status": "planned",
+      "status": "in_progress",
       "title": "Top-edge panels that roll up",
-      "summary": "A top-docked panel opens downward with its title and handle below the content, then rolls upward into a compact strip. Floating panels and panels on other edges keep their normal header position."
+      "summary": "A top-docked panel opens downward with its title and handle below the content, then rolls upward into a compact strip. Floating panels and panels on other edges keep their normal header position.",
+      "commit": null
     },
     {
       "id": "G14",
       "version": "0.12",
-      "status": "planned",
+      "status": "in_progress",
       "title": "Screen-fit recovery and All panels",
-      "summary": "Temporarily fit panels to a smaller primary-screen work area without losing saved positions or locks. Scroll crowded docks, use temporary floating recovery chips when needed, and reach every panel through a keyboard-accessible All panels browser. Full multi-monitor placement and shared-edge avoidance are not part of this step."
+      "summary": "Temporarily fit panels to a smaller primary-screen work area without losing saved positions or locks. Scroll crowded docks, use temporary floating recovery chips when needed, and reach every panel through a keyboard-accessible All panels browser. Full multi-monitor placement and shared-edge avoidance are not part of this step.",
+      "commit": null
     },
     {
       "id": "G15",
@@ -559,6 +562,14 @@
       "summary": "Translate the whole app into Slovenian. On first start, use Slovenian when the system language is Slovenian; otherwise use English."
     },
     {
+      "id": "G19",
+      "version": "0.12",
+      "status": "in_progress",
+      "title": "Always on top, one panel at a time",
+      "summary": "Keep any island or dock above your apps or on the desktop, right from its header or right-click menu. The Halo has the same choice, and one command returns everything to your default.",
+      "commit": null
+    },
+    {
       "id": "H1",
       "version": "1.0",
       "status": "planned",
@@ -573,5 +584,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-23T09:44:38+01:00"
+  "generatedAt": "2026-11-24T00:59:03+01:00"
 }
