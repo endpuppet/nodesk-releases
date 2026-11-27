@@ -536,16 +536,19 @@
     {
       "id": "G15",
       "version": "0.12",
-      "status": "planned",
+      "status": "done",
       "title": "Apps toward the upper right",
-      "summary": "New and reset built-in layouts put Apps near the upper right, floating in Home and right-docked in Dev and Art. Existing layouts stay untouched; an explicit Apps-only action can separate and reposition it without resetting the rest of the context."
+      "summary": "New and reset built-in layouts put Apps near the upper right, floating in Home and right-docked in Dev and Art. Existing layouts stay untouched; an explicit Apps-only action can separate and reposition it without resetting the rest of the context.",
+      "commit": "ff38284",
+      "date": "2026-11-27"
     },
     {
       "id": "G16",
       "version": "0.12",
-      "status": "planned",
+      "status": "in_progress",
       "title": "A shorter, themed Shelf",
-      "summary": "Keep the Shelf on the right with a shorter 160-DIP resting strip, adjustable from 80 to 320 DIP and movable vertically. Its expanded panel adopts the app’s colors and rounded styling without reducing its normal capacity or changing how it holds files."
+      "summary": "Keep the Shelf on the right with a shorter 160-DIP resting strip, adjustable from 80 to 320 DIP and movable vertically. Its expanded panel adopts the app’s colors and rounded styling without reducing its normal capacity or changing how it holds files.",
+      "commit": null
     },
     {
       "id": "G17",
@@ -585,5 +588,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-24T13:05:16+01:00"
+  "generatedAt": "2026-11-27T18:19:07+01:00"
 }
