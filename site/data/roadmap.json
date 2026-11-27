@@ -2,7 +2,7 @@
   "schema": 1,
   "channel": "alpha",
   "current": {
-    "version": "0.14.0-alpha.1"
+    "version": "0.15.0-alpha"
   },
   "versions": [
     {
@@ -588,5 +588,5 @@
       "summary": "Code signing so Windows does not warn, and a download on this page once the beta opens."
     }
   ],
-  "generatedAt": "2026-11-27T18:19:07+01:00"
+  "generatedAt": "2026-11-27T20:13:58+01:00"
 }
